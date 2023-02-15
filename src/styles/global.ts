@@ -101,5 +101,8 @@ export default createGlobalStyle`
         border-collapse: collapse;
         border-spacing: 0;
     }
+    button{
+        cursor: pointer;
+    }
 
 `;

@@ -1,7 +1,12 @@
 import { HomeStyled } from "./styles";
+import Footer from "../../components/Footer";
 
 const Home = () => {
-  return <HomeStyled>home</HomeStyled>;
+  return (
+    <HomeStyled>
+      <Footer />
+    </HomeStyled>
+  );
 };
 
 export default Home;
