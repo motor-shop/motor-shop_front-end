@@ -8,11 +8,17 @@ interface IPropsButtonStyled {
   borderColor?: string;
   fontSize?: string;
   borderColorHover?: string;
+  minButton?: boolean;
 }
 
 export const ButtonStyled = styled.button<IPropsButtonStyled>`
   background: ${({ background }) =>
     background ? background : "var(--color-brand-1)"};
+
+  border: ${({ borderColor }) =>
+    borderColor
+      ? "1.5px solid" + borderColor
+      : "1.5px solid var(--color-brand-1)"};
 
   :hover {
     background: ${({ backgroundHover }) =>
@@ -24,14 +30,11 @@ export const ButtonStyled = styled.button<IPropsButtonStyled>`
         : "1.5px solid var(--color-brand-2)"};
   }
 
+  border-radius: 4px;
   width: ${({ width }) => (width ? width : "100%")};
 
   color: ${({ color }) => (color ? color : "var(--color-whiteFixed)")};
   font-weight: 600;
   font-size: ${({ fontSize }) => (fontSize ? fontSize : "16px")};
-
-  border: ${({ borderColor }) =>
-    borderColor
-      ? "1.5px solid" + borderColor
-      : "1.5px solid var(--color-brand-1)"};
+  padding: ${({ minButton }) => (minButton ? "12px 0" : "16px 0")};
 `;

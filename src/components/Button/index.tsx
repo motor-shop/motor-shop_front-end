@@ -9,12 +9,17 @@ interface IPropsButton {
   borderColor?: string;
   borderColorHover?: string;
   fontSize?: string;
+  minButton?: boolean;
 }
 
 const Button = (props: IPropsButton) => {
   const { children, ...restProps } = props;
 
-  return <ButtonStyled {...restProps}>{children}</ButtonStyled>;
+  return (
+    <ButtonStyled type="submit" {...restProps}>
+      {children}
+    </ButtonStyled>
+  );
 };
 
 export default Button;
