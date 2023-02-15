@@ -1,4 +1,4 @@
-import { FooterContainer } from "./style";
+import { FooterContainer } from "./styles";
 import logo from "../../assets/logo.svg";
 import angleUp from "../../assets/angle-up.svg";
 
