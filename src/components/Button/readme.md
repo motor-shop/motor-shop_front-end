@@ -16,5 +16,6 @@
   - borderColor?: string //defina a cor de borda do botão ex: "var(--color-example)"
   - fontSize?: string; //defina a fonte do botão ex: "16px"
   - borderColorHover?: string; //defina a cor de borda no evento hover do botão ex: "var(--color-example)"
+  - minButton?: boolean; //se true botão com altura pequeno se não passar por padrão é o botão com altura grande
 
 ```
