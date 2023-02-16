@@ -49,7 +49,7 @@ export default createGlobalStyle`
 
     * {
         box-sizing: border-box;
-        font-family: var(--font-Inter);
+        font-family: var(--fontDefault-Inter);
 
         ::-webkit-scrollbar{
             width:10px;
@@ -92,6 +92,7 @@ export default createGlobalStyle`
         display: block;
     }
     body {
+        background-color: var(--color-gray-8);
         line-height: 1;
     }
     ol, ul {
