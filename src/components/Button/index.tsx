@@ -2,6 +2,8 @@ import { ButtonStyled } from "./styles";
 
 interface IPropsButton {
   children: React.ReactNode;
+  type: "button" | "submit";
+
   background?: string;
   backgroundHover?: string;
   width?: string;
@@ -15,11 +17,7 @@ interface IPropsButton {
 const Button = (props: IPropsButton) => {
   const { children, ...restProps } = props;
 
-  return (
-    <ButtonStyled type="submit" {...restProps}>
-      {children}
-    </ButtonStyled>
-  );
+  return <ButtonStyled {...restProps}>{children}</ButtonStyled>;
 };
 
 export default Button;

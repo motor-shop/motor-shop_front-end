@@ -14,7 +14,7 @@ export const ContainerInputStyled = styled.div`
 
   input {
     width: 100%;
-    padding: 16px 0 16px 16px;
+    padding: 16px;
 
     background: var(--color-gray-8);
     border: none;
