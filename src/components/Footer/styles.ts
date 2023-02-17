@@ -23,7 +23,6 @@ export const FooterContainer = styled.footer`
   }
 
   @media (max-width: 450px) {
-    background-color: red;
     flex-direction: column;
     gap: 3rem;
     padding: 2rem;
