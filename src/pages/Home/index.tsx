@@ -1,25 +1,44 @@
 import { HomeStyled } from "./styles";
-import Header from "../../components/Header";
+// import Header from "../../components/header";
 import Footer from "../../components/Footer";
+import Button from "../../components/Button";
+import CardVehicle from "../../components/CardVehicle";
+import Input from "../../components/Input";
+import Carrousel from "../../components/Carrousel";
+import { useAdvert } from "../../Contexts/Adverts";
 
 const Home = () => {
-  const vehicleExample = {
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing",
-    title: "Product title stays here - max 1 line",
-    tags: ["0 KM", "2019"],
-    value: "00.000,00",
-    advertiserName: "Victor",
-    advertiserImage: "https://cdn-icons-png.flaticon.com/512/20/20863.png",
-  };
+  const { vehiclesMocked } = useAdvert();
 
   return (
     <HomeStyled>
-      <Header />
+      {/* <Header /> */}
+      <div></div>
+      <Button type="button">text button</Button>
+      <Input
+        placeholder="test"
+        label="teste"
+        type="text"
+        register={() => null}
+        registerName="string"
+      />
+      <Carrousel
+        carrouselTitle="Carros"
+        gapBetweenItems="48px"
+        autoScroll={true}
+        autoScrollTime="slow"
+      >
+        <CardVehicle vehicle={vehiclesMocked[0]} />
+        <CardVehicle vehicle={vehiclesMocked[1]} />
+        <CardVehicle vehicle={vehiclesMocked[2]} />
+        <CardVehicle vehicle={vehiclesMocked[0]} />
+        <CardVehicle vehicle={vehiclesMocked[1]} />
+        <CardVehicle vehicle={vehiclesMocked[2]} />
+        <CardVehicle vehicle={vehiclesMocked[0]} />
+      </Carrousel>
       <Footer />
     </HomeStyled>
   );
-
 };
 
 export default Home;

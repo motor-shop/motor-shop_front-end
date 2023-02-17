@@ -2,25 +2,40 @@ import styled from "styled-components";
 
 export const CardVehicleStyled = styled.div`
   width: 312px;
+  min-width: 312px;
   height: 350px;
 
   display: flex;
   flex-direction: column;
 
-  :hover .containerImg {
+  cursor: pointer;
+
+  :hover .containerImgVehicle {
     border: 2px solid var(--color-brand-1);
+    img {
+      transform: scale(1.1);
+      max-width: 99%;
+      max-height: 179px;
+    }
   }
 
   .containerImgVehicle {
     border: 2px solid inherit;
     height: 179px;
     max-height: 179px;
+    min-height: 179px;
     padding: 0;
     margin-bottom: 13.5px;
     display: flex;
     justify-content: center;
     align-items: center;
     background: var(--color-gray-7);
+
+    img {
+      width: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease-out;
+    }
   }
 
   .containerVehicleTexts {

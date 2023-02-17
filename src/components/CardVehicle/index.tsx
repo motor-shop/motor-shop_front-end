@@ -1,14 +1,5 @@
+import { IVehicle } from "../../Contexts/Adverts";
 import { CardVehicleStyled } from "./styles";
-import CarAudiction from "../../assets/imgs/car-auction.png";
-
-interface IVehicle {
-  description: string;
-  title: string;
-  tags: Array<string>;
-  value: string;
-  advertiserImage: string | null;
-  advertiserName: string;
-}
 
 interface IPropsCardVehicle {
   vehicle: IVehicle;
@@ -18,7 +9,7 @@ const CardVehicle = ({ vehicle }: IPropsCardVehicle) => {
   return (
     <CardVehicleStyled>
       <figure className="containerImgVehicle">
-        <img src={CarAudiction} alt="teste" />
+        <img src={vehicle.vehicleImg} alt="teste" />
       </figure>
       <div className="containerVehicleTexts">
         <h2 className="title">{vehicle.title}</h2>
