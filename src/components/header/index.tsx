@@ -1,7 +1,7 @@
-import logo from "../assets/logo.svg";
-import bars from "../assets/bars.svg";
-import x from "../assets/x.svg";
-import profile from "../assets/profile.svg";
+import logo from "../../assets/logoHeader.svg"
+import bars from "../../assets/bars.svg";
+import x from "../../assets/x.svg";
+import profile from "../../assets/profile.svg";
 import { HeaderStyled } from "./style";
 import { useState } from "react";
 
