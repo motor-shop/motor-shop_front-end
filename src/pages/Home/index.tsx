@@ -1,5 +1,5 @@
 import { HomeStyled } from "./styles";
-// import Header from "../../components/header";
+import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Button from "../../components/Button";
 import CardVehicle from "../../components/CardVehicle";
@@ -12,7 +12,7 @@ const Home = () => {
 
   return (
     <HomeStyled>
-      {/* <Header /> */}
+      <Header />
       <div></div>
       <Button type="button">text button</Button>
       <Input

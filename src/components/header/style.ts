@@ -1,20 +1,19 @@
 import styled from "styled-components";
 
 export const HeaderStyled = styled.header`
-  padding: 10px 16px;
   width: 100vw;
   position: absolute;
-
+  height: 80px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
   background-color: var(--color-gray-10);
-
+  border-bottom: 2px solid var(--color-gray-6);
   .header {
     display: flex;
     justify-content: space-between;
-    border-bottom: 2px solid var(--color-gray-6);
+    margin-top: 15px;
 
     .headerDropDown {
       border: none;
@@ -27,6 +26,7 @@ export const HeaderStyled = styled.header`
     .menu.active {
       opacity: 1;
       visibility: visible;
+      background-color: var(--color-gray-10);
     }
 
     .menu {
@@ -73,8 +73,8 @@ export const HeaderStyled = styled.header`
           flex-direction: column;
           align-items: flex-start;
           background-color: var(--color-gray-10);
-          
-          button{
+
+          button {
             background-color: var(--color-gray-10);
           }
         }
@@ -149,7 +149,6 @@ export const HeaderStyled = styled.header`
             flex-direction: column;
             align-items: flex-start;
             background-color: var(--color-gray-9);
-           
 
             button {
               background-color: var(--color-gray-9);
