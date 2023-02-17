@@ -7,6 +7,7 @@ export const HeaderStyled = styled.header`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  
 
   background-color: var(--color-gray-10);
   border-bottom: 2px solid var(--color-gray-6);
@@ -14,6 +15,8 @@ export const HeaderStyled = styled.header`
     display: flex;
     justify-content: space-between;
     margin-top: 15px;
+    margin-left: 20px;
+    margin-right: 20px;
 
     .headerDropDown {
       border: none;
@@ -23,6 +26,7 @@ export const HeaderStyled = styled.header`
   }
 
   .menu {
+
     .menu.active {
       opacity: 1;
       visibility: visible;
@@ -42,6 +46,10 @@ export const HeaderStyled = styled.header`
       cursor: pointer;
     }
 
+    .login{
+      margin-left: 16px;
+    }
+
     .btnRegister {
       width: 300px;
       height: 40px;
@@ -51,18 +59,23 @@ export const HeaderStyled = styled.header`
     }
 
     .options {
+      border-top: 2px solid var(--color-gray-6);
       border-bottom: 2px solid var(--color-gray-6);
-      margin: 15px 0px 15px 0px;
+      margin-left: 16px;
     }
 
     .profile {
+      margin-top: 10px;
+      height: 40px;
       .menuProfile {
         display: flex;
         align-items: center;
         margin-left: 16px;
+        
 
         .btnProfile {
           background-color: var(--color-gray-10);
+          margin: 0;
         }
       }
 
@@ -73,6 +86,7 @@ export const HeaderStyled = styled.header`
           flex-direction: column;
           align-items: flex-start;
           background-color: var(--color-gray-10);
+          margin-left: 16px;
 
           button {
             background-color: var(--color-gray-10);
@@ -127,6 +141,7 @@ export const HeaderStyled = styled.header`
         border-bottom: none;
         margin: 0;
         border-right: 2px solid var(--color-gray-6);
+        border-top: none;
       }
 
       .login {
