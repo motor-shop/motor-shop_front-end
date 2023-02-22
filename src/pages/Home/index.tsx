@@ -1,5 +1,5 @@
 import { HomeStyled } from "./styles";
-import Header from "../../components/Header";
+import Header from "../../components/header";
 import Footer from "../../components/Footer";
 import Button from "../../components/Button";
 import CardVehicle from "../../components/CardVehicle";
