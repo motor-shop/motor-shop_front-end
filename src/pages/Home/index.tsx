@@ -3,12 +3,15 @@ import Header from "../../components/header";
 import Footer from "../../components/Footer";
 import Button from "../../components/Button";
 import CardVehicle from "../../components/CardVehicle";
-import Input from "../../components/Input";
 import Carrousel from "../../components/Carrousel";
 import { useAdvert } from "../../Contexts/Adverts";
+import ModalGlobal from "../../components/ModalGlobal";
+import { useState } from "react";
 
 const Home = () => {
   const { vehiclesMocked } = useAdvert();
+
+  const [closeModalTest, setCloseModalTest] = useState<boolean>(true);
 
   return (
     <HomeStyled>
@@ -33,6 +36,9 @@ const Home = () => {
         register={() => null}
         registerName="string"
       /> */}
+      <Button onClick={() => setCloseModalTest(false)} type={"button"}>
+        botão abrir modal teste
+      </Button>
       <Carrousel
         carrouselTitle="Carros"
         gapBetweenItems="48px"
@@ -47,6 +53,13 @@ const Home = () => {
         <CardVehicle vehicle={vehiclesMocked[2]} />
         <CardVehicle vehicle={vehiclesMocked[0]} />
       </Carrousel>
+      <ModalGlobal
+        title="teste"
+        closeModal={closeModalTest}
+        setCloseModal={setCloseModalTest}
+      >
+        <p>teste</p>
+      </ModalGlobal>
       <Footer />
     </HomeStyled>
   );

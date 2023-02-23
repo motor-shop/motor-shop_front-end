@@ -3,6 +3,7 @@ import { ButtonStyled } from "./styles";
 interface IPropsButton {
   children: React.ReactNode;
   type: "button" | "submit";
+  onClick?: () => void;
 
   background?: string;
   backgroundHover?: string;
