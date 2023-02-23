@@ -12,6 +12,7 @@ export interface IVehicle {
 
 interface IContextAdvert {
   vehiclesMocked: Array<IVehicle>;
+  imagesCar: Array<string>;
 }
 
 interface IPropsAdvert {
@@ -57,8 +58,17 @@ export const Advert = ({ children }: IPropsAdvert) => {
     },
   ];
 
+  const imagesCar = [
+    "https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/2021/11/VW-Gol.jpg?w=1200&h=675&crop=1",
+    "https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/2021/11/VW-Gol.jpg?w=1200&h=675&crop=1",
+    "https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/2021/11/VW-Gol.jpg?w=1200&h=675&crop=1",
+    "https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/2021/11/VW-Gol.jpg?w=1200&h=675&crop=1",
+    "https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/2021/11/VW-Gol.jpg?w=1200&h=675&crop=1",
+    "https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/2021/11/VW-Gol.jpg?w=1200&h=675&crop=1",
+  ];
+
   return (
-    <AdvertContext.Provider value={{ vehiclesMocked }}>
+    <AdvertContext.Provider value={{ vehiclesMocked, imagesCar }}>
       {children}
     </AdvertContext.Provider>
   );
