@@ -7,8 +7,13 @@ import { AdvertStyled } from "./styles";
 import CarAudiction from "../../assets/imgs/car-auction.png";
 import CardPhoto from "../../components/CardPhoto";
 import CardAdvertiser from "../../components/CardAdvertiser";
+import { useState } from "react";
+import ModalGlobal from "../../components/ModalGlobal";
 
 const Advert = () => {
+  const [closeModalImage, setCloseModalImage] = useState<boolean>(true);
+  const [imageModal, setImageModal] = useState<string>("");
+
   return (
     <>
       <Header />
@@ -42,9 +47,21 @@ const Advert = () => {
           </div>
         </div>
         <div className="container2">
-          <CardPhoto />
+          <CardPhoto
+            setCloseModalImage={setCloseModalImage}
+            setImageModal={setImageModal}
+          />
           <CardAdvertiser />
         </div>
+        <ModalGlobal
+          title="Imagem do veículo"
+          closeModal={closeModalImage}
+          setCloseModal={setCloseModalImage}
+        >
+          <figure className="imageModal">
+            <img src={imageModal} alt="" />
+          </figure>
+        </ModalGlobal>
       </AdvertStyled>
       <Footer />
     </>

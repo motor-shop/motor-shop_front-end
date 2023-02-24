@@ -121,4 +121,16 @@ export const AdvertStyled = styled.div`
       width: 440px;
     }
   }
+
+  .imageModal {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-gray-7);
+
+    img {
+      width: 90%;
+    }
+  }
 `;
