@@ -9,6 +9,8 @@ interface IPropsCarrousel {
   autoScroll?: boolean;
   autoScrollWidth?: number;
   autoScrollTime?: "slow" | "medium" | "fast" | "flash";
+  paddingBottom?: string;
+  paddingTop?: string;
 }
 
 const Carrousel = ({
@@ -18,6 +20,8 @@ const Carrousel = ({
   autoScroll = false,
   autoScrollWidth = 350,
   autoScrollTime = "medium",
+  paddingTop,
+  paddingBottom,
 }: IPropsCarrousel) => {
   const [isDragging, setIsDragging] = useState(false);
 
@@ -122,7 +126,11 @@ const Carrousel = ({
   }, [autoScroll, autoScrollWidth, autoScrollTime]);
   //----------------------------------------------------------------------------
   return (
-    <CarrouselStyled gapBetweenItems={gapBetweenItems}>
+    <CarrouselStyled
+      gapBetweenItems={gapBetweenItems}
+      paddingBottom={paddingBottom}
+      paddingTop={paddingTop}
+    >
       <h2 className="carrouselTitle">{carrouselTitle}</h2>
       <ul
         className="ListItems"

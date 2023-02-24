@@ -2,10 +2,16 @@ import styled from "styled-components";
 
 interface iPropsCarrousel {
   gapBetweenItems?: string;
+  paddingTop?: string;
+  paddingBottom?: string;
 }
 
 export const CarrouselStyled = styled.div<iPropsCarrousel>`
   width: 100vw;
+  height: 100%;
+  padding-bottom: ${({ paddingBottom }) =>
+    paddingBottom ? paddingBottom : "0"};
+  padding-top: ${({ paddingTop }) => (paddingTop ? paddingTop : "0")};
 
   .carrouselTitle {
     padding: 0 0 63px 23px;

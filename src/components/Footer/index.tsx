@@ -1,6 +1,7 @@
 import { FooterContainer } from "./styles";
 import logo from "../../assets/logo.svg";
 import angleUp from "../../assets/angle-up.svg";
+import Button from "../Button";
 
 const Footer = () => {
   const scrollTop = function () {
@@ -11,9 +12,9 @@ const Footer = () => {
     <FooterContainer>
       <img src={logo} alt="logo" />
       <p>© 2022 - Todos os direitos reservados.</p>
-      <button onClick={() => scrollTop()}>
+      <Button onClick={() => scrollTop()} type="button">
         <img src={angleUp} alt="angle up" />
-      </button>
+      </Button>
     </FooterContainer>
   );
 };

@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
 export const FooterContainer = styled.footer`
-  position: fixed;
-  bottom: 0;
   width: 100%;
   display: flex;
   align-items: center;
@@ -15,6 +13,9 @@ export const FooterContainer = styled.footer`
   }
 
   button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: var(--color-gray-1);
     border-radius: 4px;
     width: 3rem;
