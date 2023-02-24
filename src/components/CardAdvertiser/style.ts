@@ -1,11 +1,8 @@
 import styled from "styled-components";
 
 export const CardAdvertiserStyled = styled.div`
-  position: absolute;
-  width: 351px;
+  width: 100%;
   height: 398px;
-  margin-left: 12px;
-  margin-top: 20px;
   padding: 40px 28px;
 
   display: flex;

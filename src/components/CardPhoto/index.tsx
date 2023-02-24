@@ -1,4 +1,5 @@
 import { useAdvert } from "../../Contexts/Adverts";
+import Button from "../Button";
 import { Container } from "./styles";
 
 const CardPhoto = () => {
@@ -6,9 +7,11 @@ const CardPhoto = () => {
   return (
     <Container>
       <h3>Fotos</h3>
-      <div>
+      <div className="listImages">
         {imagesCar.map((elem) => (
-          <img src={elem} alt="Card car" />
+          <Button type="button">
+            <img src={elem} alt="Card car" />
+          </Button>
         ))}
       </div>
     </Container>

@@ -2,12 +2,10 @@ import styled from "styled-components";
 
 export const HeaderStyled = styled.header`
   width: 100vw;
-  position: absolute;
   height: 80px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  
 
   background-color: var(--color-gray-10);
   border-bottom: 2px solid var(--color-gray-6);
@@ -26,7 +24,6 @@ export const HeaderStyled = styled.header`
   }
 
   .menu {
-
     .menu.active {
       opacity: 1;
       visibility: visible;
@@ -46,7 +43,7 @@ export const HeaderStyled = styled.header`
       cursor: pointer;
     }
 
-    .login{
+    .login {
       margin-left: 16px;
     }
 
@@ -71,7 +68,6 @@ export const HeaderStyled = styled.header`
         display: flex;
         align-items: center;
         margin-left: 16px;
-        
 
         .btnProfile {
           background-color: var(--color-gray-10);
