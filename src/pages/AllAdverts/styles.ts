@@ -16,6 +16,7 @@ export const AllAdvertStyled = styled.div`
     gap: 1rem;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     background-color: var(--color-gray-10);
     border-radius: 4px;
 
@@ -25,8 +26,8 @@ export const AllAdvertStyled = styled.div`
     }
 
     img {
-      width: 44px;
-      height: 53px;
+      width: 104px;
+      height: 104px;
     }
 
     .name {
@@ -82,6 +83,9 @@ export const AdvertsStyled = styled.div`
 
     @media (max-width: 430px) {
       margin-top: 150px;
+    }
+    @media (max-height: 2000px) {
+      margin-top: 50px;
     }
   }
 `;
