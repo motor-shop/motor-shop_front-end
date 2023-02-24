@@ -1,4 +1,4 @@
-import logo from "../../assets/logoHeader.svg"
+import logo from "../../assets/logoHeader.svg";
 import bars from "../../assets/bars.svg";
 import x from "../../assets/x.svg";
 import profile from "../../assets/profile.svg";

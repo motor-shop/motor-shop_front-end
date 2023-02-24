@@ -1,6 +1,6 @@
 import { useUser } from "../../Contexts/User";
 import Button from "../Button";
-import profile from "../assets/profile.svg";
+import profile from "../../assets/profile.svg";
 import { CardAdvertiserStyled } from "./style";
 
 const CardAdvertiser = () => {
