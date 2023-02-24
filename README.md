@@ -16,10 +16,10 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 
 ```bash
 # Clone este repositório
-$ git clone https://github.com/Edmar-Cardoso/kenzie-hub.git
+$ git clone git@github.com:motor-shop/motor-shop_front-end.git
 
 #Acesse a pasta do projeto no terminal/cmd
-$ cd kenzie-hub
+$ cd motor-shop_front-end
 
 #Instale as dependêcias
 $ yarn
