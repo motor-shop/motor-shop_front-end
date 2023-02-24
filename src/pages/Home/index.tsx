@@ -7,6 +7,7 @@ import Carrousel from "../../components/Carrousel";
 import { useAdvert } from "../../Contexts/Adverts";
 import ModalGlobal from "../../components/ModalGlobal";
 import { useState } from "react";
+import CardAuctionCar from "../../components/CardAuctionCar";
 
 const Home = () => {
   const { vehiclesMocked } = useAdvert();
@@ -28,22 +29,22 @@ const Home = () => {
           <Button type="submit">Motos</Button>
         </div>
       </CardFilter>
-      {/* <Button type="button">text button</Button> */}
-      {/* <Input
-        placeholder="test"
-        label="teste"
-        type="text"
-        register={() => null}
-        registerName="string"
-      /> */}
-      <Button onClick={() => setCloseModalTest(false)} type={"button"}>
-        botão abrir modal teste
-      </Button>
+      <Carrousel
+        carrouselTitle="Leilão"
+        gapBetweenItems="48px"
+        autoScroll={true}
+        autoScrollTime="slow"
+        paddingBottom="200px"
+        paddingTop="100px"
+      >
+        <CardAuctionCar />
+      </Carrousel>
       <Carrousel
         carrouselTitle="Carros"
         gapBetweenItems="48px"
         autoScroll={true}
         autoScrollTime="slow"
+        paddingBottom="220px"
       >
         <CardVehicle vehicle={vehiclesMocked[0]} />
         <CardVehicle vehicle={vehiclesMocked[1]} />
@@ -53,6 +54,22 @@ const Home = () => {
         <CardVehicle vehicle={vehiclesMocked[2]} />
         <CardVehicle vehicle={vehiclesMocked[0]} />
       </Carrousel>
+      <Carrousel
+        carrouselTitle="Motos"
+        gapBetweenItems="48px"
+        autoScroll={true}
+        autoScrollTime="slow"
+        paddingBottom="120px"
+      >
+        <CardVehicle vehicle={vehiclesMocked[2]} />
+        <CardVehicle vehicle={vehiclesMocked[2]} />
+        <CardVehicle vehicle={vehiclesMocked[2]} />
+        <CardVehicle vehicle={vehiclesMocked[2]} />
+        <CardVehicle vehicle={vehiclesMocked[2]} />
+        <CardVehicle vehicle={vehiclesMocked[2]} />
+        <CardVehicle vehicle={vehiclesMocked[2]} />
+        <CardVehicle vehicle={vehiclesMocked[2]} />
+      </Carrousel>
       <ModalGlobal
         title="teste"
         closeModal={closeModalTest}
@@ -60,6 +77,9 @@ const Home = () => {
       >
         <p>teste</p>
       </ModalGlobal>
+      <Button onClick={() => setCloseModalTest(false)} type={"button"}>
+        botão abrir modal teste
+      </Button>
       <Footer />
     </HomeStyled>
   );
