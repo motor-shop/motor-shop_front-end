@@ -1,4 +1,4 @@
-import Header from "../../components/header";
+import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Button from "../../components/Button";
 
@@ -7,6 +7,7 @@ import { AdvertStyled } from "./styles";
 import CarAudiction from "../../assets/imgs/car-auction.png";
 import CardPhoto from "../../components/CardPhoto";
 import CardAdvertiser from "../../components/CardAdvertiser";
+import CardLances from "../../components/CardLances";
 import { useState } from "react";
 import ModalGlobal from "../../components/ModalGlobal";
 
@@ -52,6 +53,7 @@ const Advert = () => {
             setImageModal={setImageModal}
           />
           <CardAdvertiser />
+          <CardLances />
         </div>
         <ModalGlobal
           title="Imagem do veículo"
