@@ -1,4 +1,5 @@
 import React, { createContext, useContext } from "react";
+import { api, config } from "../../services/api";
 
 export interface IVehicle {
   description: string;
@@ -12,7 +13,7 @@ export interface IVehicle {
 
 interface IContextAdvert {
   vehiclesMocked: Array<IVehicle>;
-  imagesCar: Array<string>;
+  deleteAdvertById: (advertId: string) => void;
 }
 
 interface IPropsAdvert {
@@ -58,17 +59,12 @@ export const Advert = ({ children }: IPropsAdvert) => {
     },
   ];
 
-  const imagesCar = [
-    "https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/2021/11/VW-Gol.jpg?w=1200&h=675&crop=1",
-    "https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/2021/11/VW-Gol.jpg?w=1200&h=675&crop=1",
-    "https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/2021/11/VW-Gol.jpg?w=1200&h=675&crop=1",
-    "https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/2021/11/VW-Gol.jpg?w=1200&h=675&crop=1",
-    "https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/2021/11/VW-Gol.jpg?w=1200&h=675&crop=1",
-    "https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/2021/11/VW-Gol.jpg?w=1200&h=675&crop=1",
-  ];
+  const deleteAdvertById = (advertId: string) => {
+    api.delete(`/adverts/${advertId}`, config()).then(({ data }) => data);
+  };
 
   return (
-    <AdvertContext.Provider value={{ vehiclesMocked, imagesCar }}>
+    <AdvertContext.Provider value={{ vehiclesMocked, deleteAdvertById }}>
       {children}
     </AdvertContext.Provider>
   );
