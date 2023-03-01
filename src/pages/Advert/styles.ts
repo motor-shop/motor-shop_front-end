@@ -134,3 +134,5 @@ export const AdvertStyled = styled.div`
     }
   }
 `;
+
+export const ConfirmDeleteAdvertStyled = styled.div``;

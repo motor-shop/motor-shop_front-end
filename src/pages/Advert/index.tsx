@@ -2,18 +2,53 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Button from "../../components/Button";
 
-import { AdvertStyled } from "./styles";
+import { AdvertStyled, ConfirmDeleteAdvertStyled } from "./styles";
 
-import CarAudiction from "../../assets/imgs/car-auction.png";
 import CardPhoto from "../../components/CardPhoto";
 import CardAdvertiser from "../../components/CardAdvertiser";
 import CardLances from "../../components/CardLances";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalGlobal from "../../components/ModalGlobal";
+import { useAdvert } from "../../Contexts/Adverts";
+import { useParams } from "react-router-dom";
+import { api } from "../../services/api";
+
+interface IAdvert {
+  id: string;
+  is_selling: boolean;
+  title: string;
+  year: number;
+  km: number;
+  price: number;
+  description: string;
+  is_car: boolean;
+  cover_image: string;
+  is_active: boolean;
+  images: Array<string>;
+}
 
 const Advert = () => {
   const [closeModalImage, setCloseModalImage] = useState<boolean>(true);
   const [imageModal, setImageModal] = useState<string>("");
+
+  const [closeConfirmDeleteAdvert, setCloseConfirmDeleteAdvert] =
+    useState<boolean>(true);
+  const { deleteAdvertById } = useAdvert();
+
+  const { advertId } = useParams();
+
+  const [advert, setAdvert] = useState<null | IAdvert>(null);
+
+  useEffect(() => {
+    api
+      .get(`/adverts/${advertId}`)
+      .then(({ data }) => setAdvert(data[0]))
+      .catch((err) => console.log("erro", err));
+  }, [advertId]);
+
+  if (!advert) {
+    return <div>Carregando...</div>;
+  }
 
   return (
     <>
@@ -21,34 +56,28 @@ const Advert = () => {
       <AdvertStyled>
         <div className="container1">
           <div className="imgContainer">
-            <img src={CarAudiction} alt="car auction" />
+            <img src={advert.cover_image} alt="car auction" />
           </div>
           <div className="infos">
             <div className="carContainer">
-              <p className="carTitle">
-                Mercedes Benz A 200 CGI ADVANCE SEDAN Mercedes Benz A 200{" "}
-              </p>
+              <p className="carTitle">{advert.title}</p>
               <div className="carValues">
                 <div>
-                  <span>2013</span> <span>0 KM</span>
+                  <span>{advert.year}</span> <span>{advert.km} KM</span>
                 </div>
-                <p>R$ 00.000,00</p>
+                <p>R$ {advert.price}</p>
               </div>
               <Button type="submit">Comprar</Button>
             </div>
             <div className="carContainer">
               <p className="carTitle">Descrição</p>
-              <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book.
-              </p>
+              <p>{advert.description}</p>
             </div>
           </div>
         </div>
         <div className="container2">
           <CardPhoto
+            images={advert.images}
             setCloseModalImage={setCloseModalImage}
             setImageModal={setImageModal}
           />
@@ -63,6 +92,35 @@ const Advert = () => {
           <figure className="imageModal">
             <img src={imageModal} alt="" />
           </figure>
+        </ModalGlobal>
+        <ModalGlobal
+          title="Excluir anúncio"
+          closeModal={closeConfirmDeleteAdvert}
+          setCloseModal={setCloseConfirmDeleteAdvert}
+        >
+          <ConfirmDeleteAdvertStyled>
+            <h3>Tem certeza que deseja remover este anúncio?</h3>
+            <p>
+              Essa ação não pode ser desfeita. Isso excluirá permanentemente sua
+              conta e removerá seus dados de nossos servidores.
+            </p>
+            <Button
+              type="button"
+              color="var(--color-gray-2)"
+              background="var(--color-gray-6)"
+              onClick={() => setCloseConfirmDeleteAdvert(true)}
+            >
+              Cancelar
+            </Button>
+            <Button
+              type="button"
+              color="var(--color-alert-1)"
+              background="var(--color-alert-2)"
+              onClick={() => deleteAdvertById(advert.id)}
+            >
+              Sim, excluir anúncio
+            </Button>
+          </ConfirmDeleteAdvertStyled>
         </ModalGlobal>
       </AdvertStyled>
       <Footer />
