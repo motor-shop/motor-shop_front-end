@@ -104,22 +104,32 @@ const Advert = () => {
               Essa ação não pode ser desfeita. Isso excluirá permanentemente sua
               conta e removerá seus dados de nossos servidores.
             </p>
-            <Button
-              type="button"
-              color="var(--color-gray-2)"
-              background="var(--color-gray-6)"
-              onClick={() => setCloseConfirmDeleteAdvert(true)}
-            >
-              Cancelar
-            </Button>
-            <Button
-              type="button"
-              color="var(--color-alert-1)"
-              background="var(--color-alert-2)"
-              onClick={() => deleteAdvertById(advert.id)}
-            >
-              Sim, excluir anúncio
-            </Button>
+            <div>
+              <Button
+                type="button"
+                width="126px"
+                color="var(--color-gray-2)"
+                borderColor="var(--color-gray-6)"
+                background="var(--color-gray-6)"
+                backgroundHover="var(--color-gray-3)"
+                borderColorHover="var(--color-gray-3)"
+                onClick={() => setCloseConfirmDeleteAdvert(true)}
+              >
+                Cancelar
+              </Button>
+              <Button
+                type="button"
+                width="211px"
+                color="var(--color-alert-1)"
+                borderColor="var(--color-alert-2)"
+                background="var(--color-alert-2)"
+                backgroundHover="var(--color-alert-3)"
+                borderColorHover="var(--color-alert-1)"
+                onClick={() => deleteAdvertById(advert.id)}
+              >
+                Sim, excluir anúncio
+              </Button>
+            </div>
           </ConfirmDeleteAdvertStyled>
         </ModalGlobal>
       </AdvertStyled>
