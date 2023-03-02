@@ -1,6 +1,6 @@
 import { api } from "../../services/api";
 import jwt_decode from "jwt-decode";
-import React, { createContext } from "react";
+import React, { createContext, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface IAdress {
@@ -77,7 +77,7 @@ export const User = ({ children }: IPropsUser) => {
         const token = res.data.token;
         let decode: any = jwt_decode(token);
         localStorage.setItem("@id", decode.id);
-        navigate("/home", { replace: true });
+        // navigate("/home", { replace: true });
       })
       .catch((err) => {});
   }
@@ -88,4 +88,4 @@ export const User = ({ children }: IPropsUser) => {
   );
 };
 
-// export const useUser = () => useContext(UserContext);
+export const useUser = () => useContext(UserContext);
