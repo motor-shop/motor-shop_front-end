@@ -10,9 +10,41 @@ export interface IVehicle {
   advertiserName: string;
 }
 
+export interface IAdvertRequest {
+  title: string;
+  year: number;
+  km: number;
+  price: number;
+  description: string;
+  is_car: boolean;
+  cover_image: string;
+  is_active: boolean;
+  images: Array<string>;
+  is_selling: boolean;
+}
+
+export interface IAdvertResponse {
+  title: string;
+  year: number;
+  km: number;
+  price: string;
+  description: string;
+  is_car: boolean;
+  cover_image: string;
+  is_active: boolean;
+  images: Array<IImage>;
+  is_selling: boolean;
+}
+
+export interface IImage {
+  id: string;
+  url: string;
+}
+
 interface IContextAdvert {
   vehiclesMocked: Array<IVehicle>;
   imagesCar: Array<string>;
+  advertMocked: IAdvertResponse;
 }
 
 interface IPropsAdvert {
@@ -67,8 +99,28 @@ export const Advert = ({ children }: IPropsAdvert) => {
     "https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/2021/11/VW-Gol.jpg?w=1200&h=675&crop=1",
   ];
 
+  const advertMocked = {
+    id: "6fbfc6d7-3ff8-45f3-a030-9f6c8ae67b46",
+    is_selling: true,
+    title: "Gol g5",
+    year: 2017,
+    km: 75000,
+    price: "49.80",
+    description: "Carro de garagem",
+    is_car: true,
+    cover_image:
+      "https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/2021/11/VW-Gol.jpg?w=1200&h=675&crop=1",
+    is_active: true,
+    images: [
+      {
+        id: "d29f265c-f40a-4121-b190-a0cdb4be6804",
+        url: "https://www.cnnbrasil.com.br/wp-content/uploads/sites/12/2021/11/VW-Gol.jpg?w=1200&h=675&crop=1",
+      },
+    ],
+  };
+
   return (
-    <AdvertContext.Provider value={{ vehiclesMocked, imagesCar }}>
+    <AdvertContext.Provider value={{ vehiclesMocked, imagesCar, advertMocked }}>
       {children}
     </AdvertContext.Provider>
   );
