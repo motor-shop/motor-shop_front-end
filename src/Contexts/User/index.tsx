@@ -1,4 +1,7 @@
+import { api } from "../../services/api";
+import jwt_decode from "jwt-decode";
 import React, { createContext, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface IAdress {
   zip_code: string;
@@ -22,7 +25,7 @@ interface IUserMocked {
   adress: IAdress;
 }
 
-export interface IUserRequest{
+export interface IUserRequest {
   username: string;
   email: string;
   cpf: string;
@@ -36,6 +39,7 @@ export interface IUserRequest{
 }
 
 interface IContextUser {
+  loginUser: (data: ILoginFunction) => void;
   userMocked: IUserMocked;
 }
 
@@ -43,9 +47,20 @@ interface IPropsUser {
   children: React.ReactNode;
 }
 
-const UserContext = createContext<IContextUser>({} as IContextUser);
+export interface ILoginFunction {
+  username: string;
+  password: string;
+}
+
+interface ILoginResponse {
+  data: string;
+}
+
+export const UserContext = createContext<IContextUser>({} as IContextUser);
 
 export const User = ({ children }: IPropsUser) => {
+  const navigate = useNavigate();
+
   const userMocked = {
     username: "Rodrigo Tavares",
     email: "rodrigo@gmail.com",
@@ -65,8 +80,21 @@ export const User = ({ children }: IPropsUser) => {
       complement: "Bloco E",
     },
   };
+
+  function loginUser(data: ILoginFunction) {
+    api
+      .post<ILoginResponse>("/login", data)
+      .then((res) => {
+        localStorage.setItem("@TOKEN", res.data.data);
+        const token = res.data.data;
+        let decode: any = jwt_decode(token);
+        localStorage.setItem("@id", decode.sub);
+        navigate("/home", { replace: true });
+      })
+      .catch((err) => {});
+  }
   return (
-    <UserContext.Provider value={{ userMocked }}>
+    <UserContext.Provider value={{ userMocked, loginUser }}>
       {children}
     </UserContext.Provider>
   );
