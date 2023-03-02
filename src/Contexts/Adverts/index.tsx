@@ -11,6 +11,20 @@ export interface IVehicle {
   advertiserName: string;
 }
 
+export interface IAdvertRequest {
+  is_selling: boolean;
+  title: string;
+  year: number;
+  km: number;
+  price: number;
+  description: string;
+  is_car: boolean;
+  cover_image: string;
+  is_active: boolean;
+  images: Array<string>;
+  image1: string
+}
+
 interface IContextAdvert {
   vehiclesMocked: Array<IVehicle>;
   deleteAdvertById: (advertId: string) => void;
