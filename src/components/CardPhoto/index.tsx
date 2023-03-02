@@ -1,20 +1,24 @@
-import { useAdvert } from "../../Contexts/Adverts";
 import Button from "../Button";
 import { Container } from "./styles";
 
 interface IPropsCardPhoto {
   setCloseModalImage: React.Dispatch<React.SetStateAction<boolean>>;
   setImageModal: React.Dispatch<React.SetStateAction<string>>;
+  images: Array<string>;
 }
 
-const CardPhoto = ({ setCloseModalImage, setImageModal }: IPropsCardPhoto) => {
-  const { imagesCar } = useAdvert();
+const CardPhoto = ({
+  setCloseModalImage,
+  setImageModal,
+  images,
+}: IPropsCardPhoto) => {
   return (
     <Container>
       <h3>Fotos</h3>
       <div className="listImages">
-        {imagesCar.map((elem) => (
+        {images.map((elem, index) => (
           <Button
+            key={index}
             type="button"
             onClick={() => {
               setCloseModalImage(false);

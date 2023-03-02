@@ -25,6 +25,19 @@ interface IUserMocked {
   adress: IAdress;
 }
 
+export interface IUserRequest {
+  username: string;
+  email: string;
+  cpf: string;
+  cellphone: string;
+  birth_at: string;
+  description: string;
+  password: string;
+  confirm_password: string;
+  is_seller: boolean;
+  adress: IAdress;
+}
+
 interface IContextUser {
   loginUser: (data: ILoginFunction) => void;
   userMocked: IUserMocked;
@@ -40,7 +53,7 @@ export interface ILoginFunction {
 }
 
 interface ILoginResponse {
-  token: string;
+  data: string;
 }
 
 export const UserContext = createContext<IContextUser>({} as IContextUser);
@@ -69,15 +82,14 @@ export const User = ({ children }: IPropsUser) => {
   };
 
   function loginUser(data: ILoginFunction) {
-    console.log(data);
     api
       .post<ILoginResponse>("/login", data)
       .then((res) => {
-        localStorage.setItem("@TOKEN", res.data.token);
-        const token = res.data.token;
+        localStorage.setItem("@TOKEN", res.data.data);
+        const token = res.data.data;
         let decode: any = jwt_decode(token);
-        localStorage.setItem("@id", decode.id);
-        // navigate("/home", { replace: true });
+        localStorage.setItem("@id", decode.sub);
+        navigate("/home", { replace: true });
       })
       .catch((err) => {});
   }

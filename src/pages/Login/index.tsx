@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { FormContainer } from "./styles";
 import { ILoginFunction } from "../../Contexts/User";
 import { useUser } from "../../Contexts/User";
-import loginSchema from "../../validators/loginValidator";
+import loginSchema from "../../validations/LoginValidator";
 
 const Login = () => {
   const { loginUser } = useUser();
@@ -20,19 +20,13 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ILoginFunction>({ resolver: yupResolver(loginSchema) });
+  } = useForm<ILoginFunction>({ resolver: yupResolver(loginSchema()) });
 
   return (
     <>
       <Header />
       <FormContainer>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            console.log("chegou");
-            handleSubmit(loginUser);
-          }}
-        >
+        <form onSubmit={handleSubmit(loginUser)}>
           <label className="titleForm">Login</label>
           <Input
             placeholder="Digitar usuário"
@@ -52,9 +46,9 @@ const Login = () => {
           <Button type="submit">Entrar</Button>
           <div className="newUser">
             <p>Ainda não possui conta?</p>
-            {/* <Button type="submit" onClick={() => navigate("/")}>
+            <Button type="submit" onClick={() => navigate("/register")}>
               Cadastrar
-            </Button> */}
+            </Button>
           </div>
         </form>
       </FormContainer>

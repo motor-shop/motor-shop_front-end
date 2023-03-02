@@ -8,6 +8,8 @@ import { useAdvert } from "../../Contexts/Adverts";
 import ModalGlobal from "../../components/ModalGlobal";
 import { useState } from "react";
 import CardAuctionCar from "../../components/CardAuctionCar";
+import ModalUpdateAdvert from "../../components/ModalUpdateAdvert";
+import ModalCreateAdvert from "../../components/ModalCreateAdvert";
 
 const Home = () => {
   const { vehiclesMocked } = useAdvert();
@@ -77,11 +79,10 @@ const Home = () => {
       >
         <p>teste</p>
       </ModalGlobal>
-      <Button onClick={() => setCloseModalTest(false)} type={"button"}>
-        botão abrir modal teste
-      </Button>
+      <ModalUpdateAdvert />
+      <ModalCreateAdvert />
       <Footer />
-    </HomeStyled>
+    </ HomeStyled>
   );
 };
 

@@ -55,6 +55,8 @@ const AllAdverts = () => {
             carrouselTitle="Motos"
             gapBetweenItems="48px"
             autoScroll={false}
+            paddingBottom={"120px"}
+            paddingTop={"210px"}
           >
             <CardVehicle vehicle={vehiclesMocked[0]} />
             <CardVehicle vehicle={vehiclesMocked[1]} />
