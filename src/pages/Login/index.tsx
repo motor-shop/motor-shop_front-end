@@ -12,7 +12,7 @@ const Login = () => {
       <Header />
       <FormContainer>
         <form action="submit">
-          <label>Login</label>
+          <label className="titleForm">Login</label>
           <Input
             placeholder="Digitar usuário"
             label="Usuário"
@@ -29,8 +29,10 @@ const Login = () => {
           />
           <p>Esqueci minha senha</p>
           <Button type="submit">Entrar</Button>
-          <p>Ainda não possui conta?</p>
-          <Button type="submit">Cadastrar</Button>
+          <div className="newUser">
+            <p>Ainda não possui conta?</p>
+            <Button type="submit">Cadastrar</Button>
+          </div>
         </form>
       </FormContainer>
       <Footer />
