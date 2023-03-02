@@ -9,6 +9,7 @@ import ModalGlobal from "../../components/ModalGlobal";
 import { useState } from "react";
 import CardAuctionCar from "../../components/CardAuctionCar";
 import ModalUpdateAdvert from "../../components/ModalUpdateAdvert";
+import ModalCreateAdvert from "../../components/ModalCreateAdvert";
 
 const Home = () => {
   const { vehiclesMocked } = useAdvert();
@@ -79,6 +80,8 @@ const Home = () => {
         <p>teste</p>
       </ModalGlobal> */}
       <ModalUpdateAdvert close={closeModalTest} setClose={setCloseModalTest} />
+      </ModalGlobal>
+      <ModalCreateAdvert/>
       <Button onClick={() => setCloseModalTest(false)} type={"button"}>
         Abrir modal editar anúncio
       </Button>

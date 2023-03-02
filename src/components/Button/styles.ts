@@ -17,7 +17,7 @@ export const ButtonStyled = styled.button<IPropsButtonStyled>`
 
   border: ${({ borderColor }) =>
     borderColor
-      ? "1.5px solid" + borderColor
+      ? "1.5px solid " + borderColor
       : "1.5px solid var(--color-brand-1)"};
 
   :hover {
@@ -26,7 +26,7 @@ export const ButtonStyled = styled.button<IPropsButtonStyled>`
 
     border: ${({ borderColorHover }) =>
       borderColorHover
-        ? "1.5px solid" + borderColorHover
+        ? "1.5px solid " + borderColorHover
         : "1.5px solid var(--color-brand-2)"};
   }
 

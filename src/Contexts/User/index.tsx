@@ -22,6 +22,19 @@ interface IUserMocked {
   adress: IAdress;
 }
 
+export interface IUserRequest{
+  username: string;
+  email: string;
+  cpf: string;
+  cellphone: string;
+  birth_at: string;
+  description: string;
+  password: string;
+  confirm_password: string;
+  is_seller: boolean;
+  adress: IAdress;
+}
+
 interface IContextUser {
   userMocked: IUserMocked;
 }
