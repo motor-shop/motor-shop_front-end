@@ -14,9 +14,9 @@ interface IPropsModalUpdate {
   setClose: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ModalUpdateAdvert = ({ close, setClose }: IPropsModalUpdate) => {
+const ModalUpdateAdvert = () => {
   const { advertMocked } = useAdvert();
-  const [closeModalDelete, setCloseModalDelete] = useState(true);
+  const [closeModalTest, setCloseModalTest] = useState<boolean>(true);
   const [arrayImages, setArrayImages] = useState<IImage[]>([]);
   const [isSeller, setIsSeller] = useState<boolean>(advertMocked.is_selling);
   const [isCar, setIsCar] = useState<boolean>(advertMocked.is_car);
@@ -37,10 +37,11 @@ const ModalUpdateAdvert = ({ close, setClose }: IPropsModalUpdate) => {
   const registerIn = (data: IAdvertRequest) => {};
 
   return (
+    <>
     <ModalGlobal
       title="Editar anúncio"
-      closeModal={close}
-      setCloseModal={setClose}
+      closeModal={closeModalTest}
+      setCloseModal={setCloseModalTest}
     >
       <Container>
         <form onSubmit={handleSubmit(registerIn)}>
@@ -244,7 +245,7 @@ const ModalUpdateAdvert = ({ close, setClose }: IPropsModalUpdate) => {
               borderColor="#DEE2E6"
               backgroundHover="var(--color-gray-4)"
               borderColorHover="var(--color-gray-4)"
-              onClick={() => setCloseModalDelete(false)}
+              onClick={() => setCloseModalTest(true)}
             >
               Excluir anúncio
             </Button>
@@ -264,6 +265,10 @@ const ModalUpdateAdvert = ({ close, setClose }: IPropsModalUpdate) => {
         </form>
       </Container>
     </ModalGlobal>
+    <Button onClick={() => setCloseModalTest(false)} type={"button"}>
+        botão abrir modal update anuncio
+      </Button>
+      </>
   );
 };
 

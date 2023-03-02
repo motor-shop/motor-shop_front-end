@@ -72,21 +72,17 @@ const Home = () => {
         <CardVehicle vehicle={vehiclesMocked[2]} />
         <CardVehicle vehicle={vehiclesMocked[2]} />
       </Carrousel>
-      {/* <ModalGlobal
+      <ModalGlobal
         title="teste"
         closeModal={closeModalTest}
         setCloseModal={setCloseModalTest}
       >
         <p>teste</p>
-      </ModalGlobal> */}
-      <ModalUpdateAdvert close={closeModalTest} setClose={setCloseModalTest} />
       </ModalGlobal>
-      <ModalCreateAdvert/>
-      <Button onClick={() => setCloseModalTest(false)} type={"button"}>
-        Abrir modal editar anúncio
-      </Button>
+      <ModalUpdateAdvert />
+      <ModalCreateAdvert />
       <Footer />
-    </HomeStyled>
+    </ HomeStyled>
   );
 };
 

@@ -44,7 +44,6 @@ export interface IImage {
 
 interface IContextAdvert {
   vehiclesMocked: Array<IVehicle>;
-  imagesCar: Array<string>;
   advertMocked: IAdvertResponse;
   deleteAdvertById: (advertId: string) => void;
 }
@@ -117,7 +116,7 @@ export const Advert = ({ children }: IPropsAdvert) => {
   };
 
   return (
-    <AdvertContext.Provider value={{ vehiclesMocked, imagesCar, deleteAdvertById, advertMocked }}>
+    <AdvertContext.Provider value={{ vehiclesMocked, deleteAdvertById, advertMocked }}>
 
       {children}
     </AdvertContext.Provider>
