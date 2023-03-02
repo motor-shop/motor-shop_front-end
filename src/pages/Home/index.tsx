@@ -8,6 +8,7 @@ import { useAdvert } from "../../Contexts/Adverts";
 import ModalGlobal from "../../components/ModalGlobal";
 import { useState } from "react";
 import CardAuctionCar from "../../components/CardAuctionCar";
+import ModalUpdateAdvert from "../../components/ModalUpdateAdvert";
 import ModalCreateAdvert from "../../components/ModalCreateAdvert";
 
 const Home = () => {
@@ -71,16 +72,18 @@ const Home = () => {
         <CardVehicle vehicle={vehiclesMocked[2]} />
         <CardVehicle vehicle={vehiclesMocked[2]} />
       </Carrousel>
-      <ModalGlobal
+      {/* <ModalGlobal
         title="teste"
         closeModal={closeModalTest}
         setCloseModal={setCloseModalTest}
       >
         <p>teste</p>
+      </ModalGlobal> */}
+      <ModalUpdateAdvert close={closeModalTest} setClose={setCloseModalTest} />
       </ModalGlobal>
       <ModalCreateAdvert/>
       <Button onClick={() => setCloseModalTest(false)} type={"button"}>
-        botão abrir modal teste
+        Abrir modal editar anúncio
       </Button>
       <Footer />
     </HomeStyled>

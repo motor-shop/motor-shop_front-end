@@ -6,6 +6,8 @@ interface IPropsButton {
   type: "text" | "password";
   register: any; //register do yup, caso não use passe:  () => null
   registerName: string; //name do input que será utilizado no register
+  value?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
 }
 
 const Input = (props: IPropsButton) => {
