@@ -10,6 +10,7 @@ import { useState } from "react";
 import CardAuctionCar from "../../components/CardAuctionCar";
 import ModalUpdateAdvert from "../../components/ModalUpdateAdvert";
 import ModalCreateAdvert from "../../components/ModalCreateAdvert";
+import ModalUpdateProfile from "../../components/ModalUpdateUser";
 
 const Home = () => {
   const { vehiclesMocked } = useAdvert();
@@ -81,6 +82,7 @@ const Home = () => {
       </ModalGlobal>
       <ModalUpdateAdvert />
       <ModalCreateAdvert />
+      <ModalUpdateProfile />
       <Footer />
     </ HomeStyled>
   );

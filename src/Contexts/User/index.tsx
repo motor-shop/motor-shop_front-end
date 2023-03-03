@@ -38,6 +38,15 @@ export interface IUserRequest {
   adress: IAdress;
 }
 
+export interface IUserUpdate{
+  username: string;
+  email: string;
+  cpf: string;
+  cellphone: string;
+  birth_at: string;
+  description: string;
+}
+
 interface IContextUser {
   loginUser: (data: ILoginFunction) => void;
   userMocked: IUserMocked;
