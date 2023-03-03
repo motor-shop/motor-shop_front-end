@@ -12,6 +12,7 @@ import ModalGlobal from "../../components/ModalGlobal";
 import { useAdvert } from "../../Contexts/Adverts";
 import { useParams } from "react-router-dom";
 import { api } from "../../services/api";
+import CardComent, { IComment } from "../../components/CardComent";
 
 interface IAdvert {
   id: string;
@@ -25,6 +26,7 @@ interface IAdvert {
   cover_image: string;
   is_active: boolean;
   images: Array<string>;
+  comments: Array<IComment>;
 }
 
 const Advert = () => {
@@ -73,6 +75,7 @@ const Advert = () => {
               <p className="carTitle">Descrição</p>
               <p>{advert.description}</p>
             </div>
+            <CardComent comments={advert.comments} />
           </div>
         </div>
         <div className="container2">

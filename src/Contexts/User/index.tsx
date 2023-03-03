@@ -38,6 +38,19 @@ export interface IUserRequest {
   adress: IAdress;
 }
 
+export interface IUserResponse {
+  username: string;
+  email: string;
+  cpf: string;
+  cellphone: string;
+  birth_at: string;
+  description: string;
+  password: string;
+  confirm_password: string;
+  is_seller: boolean;
+  adress: IAdress;
+}
+
 interface IContextUser {
   loginUser: (data: ILoginFunction) => void;
   userMocked: IUserMocked;
