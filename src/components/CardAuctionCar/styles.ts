@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  user-select: none;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.29) 0%, #000000 77%);
   width: 90%;
   height: 490px;

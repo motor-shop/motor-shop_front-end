@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const CardVehicleStyled = styled.div`
+  user-select: none;
   width: 312px;
   min-width: 312px;
   height: 350px;
