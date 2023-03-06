@@ -11,6 +11,7 @@ import CardAuctionCar from "../../components/CardAuctionCar";
 import ModalUpdateAdvert from "../../components/ModalUpdateAdvert";
 import ModalCreateAdvert from "../../components/ModalCreateAdvert";
 import ModalUpdateProfile from "../../components/ModalUpdateUser";
+import ModalUpdateAddress from "../../components/ModalUpdateAddress";
 
 const Home = () => {
   const { vehiclesMocked } = useAdvert();
@@ -83,6 +84,7 @@ const Home = () => {
       <ModalUpdateAdvert />
       <ModalCreateAdvert />
       <ModalUpdateProfile />
+      <ModalUpdateAddress />
       <Footer />
     </ HomeStyled>
   );
