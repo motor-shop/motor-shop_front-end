@@ -11,10 +11,13 @@ import { FormContainer } from "./styles";
 import { ILoginFunction } from "../../Contexts/User";
 import { useUser } from "../../Contexts/User";
 import loginSchema from "../../validations/LoginValidator";
+import ModalSendEmail from "../../components/ModalSendEmail";
+import { useState } from "react";
 
 const Login = () => {
   const { loginUser } = useUser();
   const navigate = useNavigate();
+  const [closeModal, setCloseModal] = useState(true);
 
   const {
     register,
@@ -42,7 +45,16 @@ const Login = () => {
             register={register}
             registerName="password"
           />
-          <p>Esqueci minha senha</p>
+          <div className="containerButtonResetPassword">
+            <button
+              className="buttonResetPassword"
+              onClick={() => {
+                setCloseModal(false);
+              }}
+            >
+              Esqueci minha senha
+            </button>
+          </div>
           <Button type="submit">Entrar</Button>
           <div className="newUser">
             <p>Ainda não possui conta?</p>
@@ -52,6 +64,7 @@ const Login = () => {
           </div>
         </form>
       </FormContainer>
+      <ModalSendEmail closeModal={closeModal} setCloseModal={setCloseModal} />
       <Footer />
     </>
   );
