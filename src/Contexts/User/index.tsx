@@ -1,15 +1,29 @@
 import { api } from "../../services/api";
 import jwt_decode from "jwt-decode";
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-interface IAdress {
+export interface IAdress {
   zip_code: string;
   state: string;
   city: string;
   street: string;
   house_number: number;
   complement: string;
+}
+
+export interface IUser {
+  id: string;
+  username: string;
+  email: string;
+  cpf: string;
+  cellphone: string;
+  birth_at: string;
+  description: string;
+  password: string;
+  confirm_password: string;
+  is_seller: boolean;
+  adress: IAdress;
 }
 
 interface IUserMocked {
@@ -51,9 +65,20 @@ export interface IUserResponse {
   adress: IAdress;
 }
 
+export interface IUserUpdate {
+  username: string;
+  email: string;
+  cpf: string;
+  cellphone: string;
+  birth_at: string;
+  description: string;
+}
+
 interface IContextUser {
   loginUser: (data: ILoginFunction) => void;
   userMocked: IUserMocked;
+  closeModalUpdate: boolean;
+  setCloseModalUpdate: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface IPropsUser {
@@ -73,6 +98,9 @@ export const UserContext = createContext<IContextUser>({} as IContextUser);
 
 export const User = ({ children }: IPropsUser) => {
   const navigate = useNavigate();
+
+  const [closeModalUpdate, setCloseModalUpdate] = useState<boolean>(true);
+  const [user, setUser] = useState<IUser>({} as IUser);
 
   const userMocked = {
     username: "Rodrigo Tavares",
@@ -96,18 +124,23 @@ export const User = ({ children }: IPropsUser) => {
 
   function loginUser(data: ILoginFunction) {
     api
-      .post<ILoginResponse>("/login", data)
+      .post("/login", data)
       .then((res) => {
-        localStorage.setItem("@TOKEN", res.data.data);
-        const token = res.data.data;
+        localStorage.setItem("@TOKEN", res.data.data.token);
+        const token = res.data.data.token;
         let decode: any = jwt_decode(token);
         localStorage.setItem("@id", decode.sub);
+        localStorage.setItem("@addressId", res.data.data.userExists.adress.id);
+        setUser(res.data.data.userExists)
         navigate("/home", { replace: true });
       })
       .catch((err) => {});
   }
+
   return (
-    <UserContext.Provider value={{ userMocked, loginUser }}>
+    <UserContext.Provider
+      value={{ userMocked, loginUser, closeModalUpdate, setCloseModalUpdate }}
+    >
       {children}
     </UserContext.Provider>
   );

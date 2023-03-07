@@ -4,12 +4,13 @@ import x from "../../assets/x.svg";
 import profile from "../../assets/profile.svg";
 import { HeaderStyled } from "./style";
 import { useState } from "react";
+import { useUser } from "../../Contexts/User";
 
 const Header = () => {
   const [isActive, setIsActive] = useState(false);
   const openMenu = () => setIsActive(!isActive);
 
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(true);
 
   return (
     <HeaderStyled>
@@ -83,13 +84,15 @@ const HeaderLogged = () => {
 };
 
 const SellerProfile = () => {
+  const { closeModalUpdate, setCloseModalUpdate } = useUser();
+
   return (
     <div className="profileOptions">
       <li>
         <button> Editar Perfil </button>
       </li>
       <li>
-        <button> Editar endereço </button>
+        <button onClick={() => setCloseModalUpdate(false)} type={"button"}> Editar endereço </button>
       </li>
       <li>
         <button> Meus anúncios </button>
