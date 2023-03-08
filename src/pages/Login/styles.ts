@@ -27,6 +27,21 @@ export const FormContainer = styled.div`
     font-size: 12px;
   }
 
+  .containerButtonResetPassword {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .buttonResetPassword {
+    background: transparent;
+
+    border: none;
+
+    text-align: end;
+    font-size: 12px;
+  }
+
   .newUser {
     margin-top: 1rem;
     p {

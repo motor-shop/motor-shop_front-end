@@ -5,6 +5,7 @@ import AllAdverts from "../pages/AllAdverts";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import ResetPassword from "../pages/ResetPassword";
 
 const Routers = () => (
   <Routes>
@@ -13,6 +14,7 @@ const Routers = () => (
     <Route path="/advert/:advertId" element={<Advert />} />
     <Route path="/allAdverts" element={<AllAdverts />} />
     <Route path="/register" element={<Register />} />
+    <Route path="/reset-password/:token" element={<ResetPassword />} />
     <Route path="*" element={<Navigate to="/home" />} />
   </Routes>
 );
