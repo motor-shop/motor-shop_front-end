@@ -20,6 +20,11 @@ export const AllAdvertStyled = styled.div`
     background-color: var(--color-gray-10);
     border-radius: 4px;
 
+    button {
+      border: 1.5px solid #4529e6;
+      border-radius: 4px;
+    }
+
     @media (max-width: 430px) {
       height: auto;
       padding: 1rem;

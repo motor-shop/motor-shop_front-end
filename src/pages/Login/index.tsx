@@ -7,7 +7,7 @@ import Footer from "../../components/Footer";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { FormContainer } from "./styles";
+import { Div, FormContainer } from "./styles";
 import { ILoginFunction } from "../../Contexts/User";
 import { useUser } from "../../Contexts/User";
 import loginSchema from "../../validations/LoginValidator";
@@ -26,7 +26,7 @@ const Login = () => {
   } = useForm<ILoginFunction>({ resolver: yupResolver(loginSchema()) });
 
   return (
-    <>
+    <Div>
       <Header />
       <FormContainer>
         <form onSubmit={handleSubmit(loginUser)}>
@@ -66,7 +66,7 @@ const Login = () => {
       </FormContainer>
       <ModalSendEmail closeModal={closeModal} setCloseModal={setCloseModal} />
       <Footer />
-    </>
+      </Div>
   );
 };
 

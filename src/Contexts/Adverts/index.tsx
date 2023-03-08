@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { api, config } from "../../services/api";
 
 export interface IVehicle {
@@ -46,6 +46,8 @@ interface IContextAdvert {
   vehiclesMocked: Array<IVehicle>;
   advertMocked: IAdvertResponse;
   deleteAdvertById: (advertId: string) => void;
+  closeModalCreateAdvert: boolean;
+  setCloseModalCreateAdvert: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface IPropsAdvert {
@@ -55,6 +57,9 @@ interface IPropsAdvert {
 const AdvertContext = createContext<IContextAdvert>({} as IContextAdvert);
 
 export const Advert = ({ children }: IPropsAdvert) => {
+  const [closeModalCreateAdvert, setCloseModalCreateAdvert] =
+    useState<boolean>(true);
+
   const vehiclesMocked = [
     {
       vehicleImg:
@@ -116,8 +121,9 @@ export const Advert = ({ children }: IPropsAdvert) => {
   };
 
   return (
-    <AdvertContext.Provider value={{ vehiclesMocked, deleteAdvertById, advertMocked }}>
-
+    <AdvertContext.Provider
+      value={{ vehiclesMocked, deleteAdvertById, advertMocked, closeModalCreateAdvert, setCloseModalCreateAdvert }}
+    >
       {children}
     </AdvertContext.Provider>
   );

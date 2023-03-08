@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IAdvertRequest } from "../../Contexts/Adverts";
+import { IAdvertRequest, useAdvert } from "../../Contexts/Adverts";
 import Button from "../Button";
 import Input from "../Input";
 import ModalGlobal from "../ModalGlobal";
@@ -10,7 +10,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { api } from "../../services/api";
 
 const ModalCreateAdvert = () => {
-  const [closeModalTest, setCloseModalTest] = useState<boolean>(true);
+  
+  const { closeModalCreateAdvert, setCloseModalCreateAdvert } = useAdvert();
   const [isCar, setIsCar] = useState<boolean>(true);
   const [isSelling, setIsSelling] = useState<boolean>(true);
   const [countMap, setCountMap] = useState<Array<number>>([]);
@@ -70,8 +71,8 @@ const ModalCreateAdvert = () => {
     <>
       <ModalGlobal
         title="Criar anúncio"
-        closeModal={closeModalTest}
-        setCloseModal={setCloseModalTest}
+        closeModal={closeModalCreateAdvert}
+        setCloseModal={setCloseModalCreateAdvert}
       >
         <CreateFormStyled onSubmit={handleSubmit(createAdvert)}>
           <label>Tipo de anuncio</label>
@@ -275,7 +276,7 @@ const ModalCreateAdvert = () => {
               fontSize="16px"
               color="#495057"
               minButton={true}
-              onClick={() => setCloseModalTest(true)}
+              onClick={() => setCloseModalCreateAdvert(true)}
             >
               Cancelar
             </Button>
@@ -296,9 +297,6 @@ const ModalCreateAdvert = () => {
           </div>
         </CreateFormStyled>
       </ModalGlobal>
-      <Button onClick={() => setCloseModalTest(false)} type={"button"}>
-        botão abrir modal criar Advert
-      </Button>
     </>
   );
 };
