@@ -79,6 +79,8 @@ interface IContextUser {
   userMocked: IUserMocked;
   closeModalUpdate: boolean;
   setCloseModalUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+  closeModalSuccess: boolean;
+  setCloseModalSuccess: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface IPropsUser {
@@ -100,6 +102,7 @@ export const User = ({ children }: IPropsUser) => {
   const navigate = useNavigate();
 
   const [closeModalUpdate, setCloseModalUpdate] = useState<boolean>(true);
+  const [closeModalSuccess, setCloseModalSuccess] = useState<boolean>(true);
   const [user, setUser] = useState<IUser>({} as IUser);
 
   const userMocked = {
@@ -139,7 +142,7 @@ export const User = ({ children }: IPropsUser) => {
 
   return (
     <UserContext.Provider
-      value={{ userMocked, loginUser, closeModalUpdate, setCloseModalUpdate }}
+      value={{ userMocked, loginUser, closeModalUpdate, setCloseModalUpdate, closeModalSuccess, setCloseModalSuccess }}
     >
       {children}
     </UserContext.Provider>
