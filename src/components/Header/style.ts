@@ -67,11 +67,14 @@ export const HeaderStyled = styled.header`
       .menuProfile {
         display: flex;
         align-items: center;
-        margin-left: 16px;
+        justify-content: center;
+        margin-left: 35px;
 
         .btnProfile {
           background-color: var(--color-gray-10);
           margin: 0;
+          margin-right: 35px;
+          
         }
       }
 
@@ -175,7 +178,8 @@ export const HeaderStyled = styled.header`
         box-shadow: 0px 4px 40px -10px rgba(0, 0, 0, 0.25);
         border-radius: 4px;
         line-height: 28px;
-        width: 148px;
+        width: 200px;
+        
       }
 
       .menu.close {

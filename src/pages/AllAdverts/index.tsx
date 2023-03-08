@@ -9,10 +9,12 @@ import profile from "../../assets/profile.svg";
 
 import { useUser } from "../../Contexts/User";
 import { useAdvert } from "../../Contexts/Adverts";
+import Button from "../../components/Button";
+import ModalCreateAdvert from "../../components/ModalCreateAdvert";
 
 const AllAdverts = () => {
-  const { userMocked } = useUser();
-  const { vehiclesMocked } = useAdvert();
+  const { userMocked, user } = useUser();
+  const { vehiclesMocked, setCloseModalCreateAdvert } = useAdvert();
 
   return (
     <>
@@ -22,15 +24,33 @@ const AllAdverts = () => {
           <img src={profile} alt="imagem de perfil" />
           <div className="name">
             <p className="profileName"> {userMocked.username}</p>
-            <div className="isSeller">
-              <p> Anunciante</p>
-            </div>
+            {user.is_seller ? (
+              <div className="isSeller">
+                <p> Anunciante</p>
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
-          <p className="description">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s
-          </p>
+          <p className="description">{user.description}</p>
+          {user.is_seller ? (
+            <Button
+              type="button"
+              background=" #FFFFFF"
+              borderColor="##4529E6"
+              backgroundHover="#EDEAFD"
+              borderColorHover="##4529E6"
+              width="150px"
+              fontSize="16px"
+              color="#4529E6"
+              minButton={true}
+              onClick={() => setCloseModalCreateAdvert(false)}
+            >
+              Criar anuncio
+            </Button>
+          ) : (
+            <> </>
+          )}
         </div>
       </AllAdvertStyled>
       <AdvertsStyled>
@@ -68,6 +88,7 @@ const AllAdverts = () => {
           </Carrousel>
         </div>
       </AdvertsStyled>
+      <ModalCreateAdvert />
       <Footer />
     </>
   );

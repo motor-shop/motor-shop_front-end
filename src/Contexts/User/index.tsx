@@ -81,6 +81,10 @@ interface IContextUser {
   setCloseModalUpdate: React.Dispatch<React.SetStateAction<boolean>>;
   closeModalSuccess: boolean;
   setCloseModalSuccess: React.Dispatch<React.SetStateAction<boolean>>;
+  isLogged: boolean;
+  user: IUser;
+  closeModalUpdateProfile: boolean;
+  setCloseModalUpdateProfile: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface IPropsUser {
@@ -103,7 +107,10 @@ export const User = ({ children }: IPropsUser) => {
 
   const [closeModalUpdate, setCloseModalUpdate] = useState<boolean>(true);
   const [closeModalSuccess, setCloseModalSuccess] = useState<boolean>(true);
+  const [closeModalUpdateProfile, setCloseModalUpdateProfile] =
+    useState<boolean>(true);
   const [user, setUser] = useState<IUser>({} as IUser);
+  const [isLogged, setIsLogged] = useState<boolean>(false);
 
   const userMocked = {
     username: "Rodrigo Tavares",
@@ -134,15 +141,27 @@ export const User = ({ children }: IPropsUser) => {
         let decode: any = jwt_decode(token);
         localStorage.setItem("@id", decode.sub);
         localStorage.setItem("@addressId", res.data.data.userExists.adress.id);
-        setUser(res.data.data.userExists)
-        navigate("/home", { replace: true });
+        setUser(res.data.data.userExists);
+        setIsLogged(true);
+        navigate("/allAdverts", { replace: true });
       })
       .catch((err) => {});
   }
 
   return (
     <UserContext.Provider
-      value={{ userMocked, loginUser, closeModalUpdate, setCloseModalUpdate, closeModalSuccess, setCloseModalSuccess }}
+      value={{
+        userMocked,
+        loginUser,
+        closeModalUpdate,
+        setCloseModalUpdate,
+        closeModalSuccess,
+        setCloseModalSuccess,
+        isLogged,
+        user,
+        closeModalUpdateProfile,
+        setCloseModalUpdateProfile
+      }}
     >
       {children}
     </UserContext.Provider>

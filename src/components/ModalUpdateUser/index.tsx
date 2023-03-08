@@ -1,17 +1,16 @@
-import { useState } from "react";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { api } from "../../services/api";
-import { IUserUpdate } from "../../Contexts/User";
+import { IUserUpdate, useUser } from "../../Contexts/User";
 import { FormStyled } from "./styles";
 import ModalGlobal from "../ModalGlobal";
 
 const ModalUpdateProfile = () => {
-  const [closeModal, setCloseModal] = useState<boolean>(true);
+  
+  const { closeModalUpdateProfile, setCloseModalUpdateProfile } = useUser();
 
   const formSchema = yup.object().shape({
     username: yup.string(),
@@ -47,8 +46,8 @@ const ModalUpdateProfile = () => {
     <>
       <ModalGlobal
         title="Editar perfil"
-        closeModal={closeModal}
-        setCloseModal={setCloseModal}
+        closeModal={closeModalUpdateProfile}
+        setCloseModal={setCloseModalUpdateProfile}
       >
         <FormStyled onSubmit={handleSubmit(userUpdate)}>
           <p> Informações pessoais</p>
@@ -106,7 +105,7 @@ const ModalUpdateProfile = () => {
               width="100px"
               fontSize="16px"
               color="#495057"
-              onClick={() => setCloseModal(true)}
+              onClick={() => setCloseModalUpdateProfile(true)}
             >
               Cancelar
             </Button>
@@ -116,7 +115,7 @@ const ModalUpdateProfile = () => {
               background=" #4529E6"
               backgroundHover="#4529E6"
               borderColorHover="#4529E6"
-              borderColor="##4529E6"
+              borderColor="#4529E6"
               width="196px"
               fontSize="16px"
               color="#FFFFFF"
@@ -126,9 +125,6 @@ const ModalUpdateProfile = () => {
           </div>
         </FormStyled>
       </ModalGlobal>
-      <Button onClick={() => setCloseModal(false)} type={"button"}>
-        botão abrir modal atualizar perfil
-      </Button>
     </>
   );
 };
