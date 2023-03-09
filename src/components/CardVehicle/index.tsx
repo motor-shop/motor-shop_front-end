@@ -1,19 +1,24 @@
+import { useNavigate } from "react-router-dom";
 import { IVehicle } from "../../Contexts/Adverts";
 import { CardVehicleStyled } from "./styles";
 
 interface IPropsCardVehicle {
   vehicle: IVehicle;
+  id: string
 }
 
-const CardVehicle = ({ vehicle }: IPropsCardVehicle) => {
+const CardVehicle = ({ vehicle, id }: IPropsCardVehicle) => {
+
+  const navigate = useNavigate();
+
   return (
-    <CardVehicleStyled>
+    <CardVehicleStyled onClick={() => navigate(`/advert/${id}`, { replace: true })}>
       <figure className="containerImgVehicle">
         <img src={vehicle.vehicleImg} alt="teste" />
       </figure>
       <div className="containerVehicleTexts">
         <h2 className="title">{vehicle.title}</h2>
-        <p className="description">`{vehicle.description}</p>
+        <p className="description">{vehicle.description}</p>
       </div>
       <div className="containerAdvertiserInfos">
         <div className="containerImgAdvertiser">
@@ -27,7 +32,7 @@ const CardVehicle = ({ vehicle }: IPropsCardVehicle) => {
       </div>
       <div className="containerAdvertInfos">
         <div className="containerAdvertTags">
-          <span className="advertTag">{vehicle.tags[0]}</span>
+          <span className="advertTag">{vehicle.tags[0]} KM</span>
           <span className="advertTag">{vehicle.tags[1]}</span>
         </div>
         <p className="advertValue">R$ {vehicle.value}</p>

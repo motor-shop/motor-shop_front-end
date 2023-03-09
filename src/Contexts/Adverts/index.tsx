@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { api, config } from "../../services/api";
 
 export interface IVehicle {
@@ -9,6 +9,33 @@ export interface IVehicle {
   value: string;
   advertiserImage: string | null;
   advertiserName: string;
+}
+
+export interface IVehicleDinamico {
+  vehicleImg: string;
+  description: string;
+  title: string;
+  tags: number[];
+  value: number;
+  advertiserName: any;
+  advertiserImage: string;
+  isCar: boolean;
+  id: string;
+}
+
+export interface IAdvert {
+  id: string;
+  title: string;
+  year: number;
+  km: number;
+  price: number;
+  description: string;
+  is_car: boolean;
+  cover_image: string;
+  is_active: boolean;
+  images: Array<string>;
+  is_selling: boolean;
+  user: any;
 }
 
 export interface IAdvertRequest {
@@ -48,6 +75,7 @@ interface IContextAdvert {
   deleteAdvertById: (advertId: string) => void;
   closeModalCreateAdvert: boolean;
   setCloseModalCreateAdvert: React.Dispatch<React.SetStateAction<boolean>>;
+  vehicles: Array<IVehicleDinamico>;
 }
 
 interface IPropsAdvert {
@@ -120,9 +148,50 @@ export const Advert = ({ children }: IPropsAdvert) => {
     ],
   };
 
+  const [allAdverts, setAllAdverts] = useState<IAdvert[]>([]);
+
+  useEffect(() => {
+    async function allAdverts() {
+      try {
+        await api.get("/adverts").then((response) => {
+          console.log("response", response.data);
+          setAllAdverts(response.data);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    allAdverts();
+  }, []);
+
+  let vehicleAdvert = {};
+
+  let vehicles: Array<IVehicleDinamico> = allAdverts.map(
+    (advert) =>
+      (vehicleAdvert = {
+        vehicleImg: advert.cover_image,
+        description: advert.description,
+        title: advert.title,
+        tags: [advert.km, advert.year],
+        value: advert.price,
+        advertiserName: advert.user.username,
+        advertiserImage: "https://cdn-icons-png.flaticon.com/512/20/20863.png",
+        isCar: advert.is_car,
+        id: advert.id,
+      })
+  );
+
   return (
     <AdvertContext.Provider
-      value={{ vehiclesMocked, deleteAdvertById, advertMocked, closeModalCreateAdvert, setCloseModalCreateAdvert }}
+      value={{
+        vehiclesMocked,
+        deleteAdvertById,
+        advertMocked,
+        closeModalCreateAdvert,
+        setCloseModalCreateAdvert,
+        vehicles,
+      }}
     >
       {children}
     </AdvertContext.Provider>
