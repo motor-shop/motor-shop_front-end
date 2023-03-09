@@ -1,10 +1,16 @@
 import styled from "styled-components";
 
+export const Div = styled.div`
+height: 100vh;
+display: flex;
+justify-content: center;
+flex-direction: column;
+`
 export const FormContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 5rem;
-  margin-bottom: 6.9rem;
+  height: 100vh;
 
   form {
     display: flex;
@@ -14,6 +20,7 @@ export const FormContainer = styled.div`
     padding: 3rem;
     width: 25rem;
     gap: 1rem;
+    height: 542px ;
 
     .titleForm {
       font-size: 1.3rem;
@@ -23,6 +30,21 @@ export const FormContainer = styled.div`
   }
 
   p {
+    text-align: end;
+    font-size: 12px;
+  }
+
+  .containerButtonResetPassword {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .buttonResetPassword {
+    background: transparent;
+
+    border: none;
+
     text-align: end;
     font-size: 12px;
   }

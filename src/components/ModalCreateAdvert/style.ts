@@ -74,8 +74,8 @@ export const CreateFormStyled = styled.form`
     margin-top: 28px;
     margin-bottom: 55px;
     button:hover {
-        color:var(--color-whiteFixed) ;
-      }
+      color: var(--color-whiteFixed);
+    }
   }
 
   .finalButton {

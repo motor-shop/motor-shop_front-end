@@ -7,11 +7,13 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { api } from "../../services/api";
-import { IUserRequest } from "../../Contexts/User";
+import { IUserRequest, useUser } from "../../Contexts/User";
 import { FormStyled } from "./styles";
+import ModalSuccess from "../../components/ModalSuccess";
 
 const Register = () => {
   const [isSeller, setIsSeller] = useState<boolean>(true);
+  const { setCloseModalSuccess } = useUser()
 
   const formSchema = yup.object().shape({
     username: yup.string().required("Nome obrigatório"),
@@ -54,6 +56,7 @@ const Register = () => {
       .post("/users", data)
       .then((response) => {
         console.log(response.data);
+        setCloseModalSuccess(false)
       })
       .catch((err) => {
         console.log(err);
@@ -243,7 +246,7 @@ const Register = () => {
           </Button>
         </div>
       </FormStyled>
-
+      <ModalSuccess />
       <Footer />
     </>
   );

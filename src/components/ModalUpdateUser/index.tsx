@@ -1,7 +1,7 @@
+
 import { useEffect, useState } from "react";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,7 +14,7 @@ import jwtDecode from "jwt-decode";
 
 const ModalUpdateProfile = () => {
   const [closeModal, setCloseModal] = useState<boolean>(true);
-  const { setCloseConfirmDeleteUser } = useUser();
+  const { closeModalUpdateProfile, setCloseModalUpdateProfile, setCloseConfirmDeleteUser } = useUser();
   const [userLogged, setUserLogged] = useState<any>();
 
   const formSchema = yup.object().shape({
@@ -61,8 +61,8 @@ const ModalUpdateProfile = () => {
     <>
       <ModalGlobal
         title="Editar perfil"
-        closeModal={closeModal}
-        setCloseModal={setCloseModal}
+        closeModal={closeModalUpdateProfile}
+        setCloseModal={setCloseModalUpdateProfile}
       >
         <FormStyled onSubmit={handleSubmit(userUpdate)}>
           <p> Informações pessoais</p>
@@ -136,7 +136,7 @@ const ModalUpdateProfile = () => {
               width="100px"
               fontSize="16px"
               color="#495057"
-              onClick={() => setCloseModal(true)}
+              onClick={() => setCloseModalUpdateProfile(true)}
             >
               Cancelar
             </Button>
@@ -146,7 +146,7 @@ const ModalUpdateProfile = () => {
               background=" #4529E6"
               backgroundHover="#4529E6"
               borderColorHover="#4529E6"
-              borderColor="##4529E6"
+              borderColor="#4529E6"
               width="196px"
               fontSize="16px"
               color="#FFFFFF"
