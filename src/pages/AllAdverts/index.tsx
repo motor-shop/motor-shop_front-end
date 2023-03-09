@@ -11,10 +11,21 @@ import { useUser } from "../../Contexts/User";
 import { useAdvert } from "../../Contexts/Adverts";
 import Button from "../../components/Button";
 import ModalCreateAdvert from "../../components/ModalCreateAdvert";
+import MessageNotAdvert from "../../components/MessageNotAdverts";
 
 const AllAdverts = () => {
-  const { userMocked, user } = useUser();
-  const { vehiclesMocked, setCloseModalCreateAdvert, vehicles } = useAdvert();
+  const { user } = useUser();
+  const { setCloseModalCreateAdvert, vehiclesByUser } = useAdvert();
+  const carVehicles = vehiclesByUser
+    ? vehiclesByUser.filter(
+        (vehiclesByUser: any) => vehiclesByUser.isCar === true
+      )
+    : [];
+  const bikeVehicles = vehiclesByUser
+    ? vehiclesByUser.filter(
+        (vehiclesByUser: any) => vehiclesByUser.isCar === false
+      )
+    : [];
 
   return (
     <>
@@ -55,62 +66,55 @@ const AllAdverts = () => {
       </AllAdvertStyled>
       <AdvertsStyled>
         <div className="cars">
-        {user.is_seller?
-          <Carrousel
-            carrouselTitle="Carros"
-            gapBetweenItems="48px"
-            autoScroll={false}
-          >
-            
-            <> 
-            *listar anuncios do usuário*
-            </>
-            </Carrousel>
-            : 
+          {user.is_seller ? (
             <Carrousel
-            carrouselTitle="Carros"
-            gapBetweenItems="48px"
-            autoScroll={false}
-          >
-            
-            {vehicles
-              .filter((vehicles: any) => vehicles.isCar === true)
-              .map((vehicle: any) => (
-                <CardVehicle vehicle={vehicle} id={vehicle.id} />
-              ))}
+              carrouselTitle="Carros"
+              gapBetweenItems="48px"
+              autoScroll={false}
+            >
+              <>*listar anuncios do usuário*</>
             </Carrousel>
-            
-          }
-          
+          ) : (
+            <Carrousel
+              carrouselTitle="Carros"
+              gapBetweenItems="48px"
+              autoScroll={false}
+            >
+              {carVehicles.length > 0 ? (
+                carVehicles.map((vehicle: any) => (
+                  <CardVehicle vehicle={vehicle} id={vehicle.id} />
+                ))
+              ) : (
+                <MessageNotAdvert />
+              )}
+            </Carrousel>
+          )}
         </div>
 
         <div className="motorcycles">
-        {user.is_seller?
-          <Carrousel
-            carrouselTitle="Motos"
-            gapBetweenItems="48px"
-            autoScroll={false}
-          >
-            
-            <> 
-            *listar anuncios do usuário*
-            </>
-            </Carrousel>
-            : 
+          {user.is_seller ? (
             <Carrousel
-            carrouselTitle="Motos"
-            gapBetweenItems="48px"
-            autoScroll={false}
-          >
-            
-            {vehicles
-              .filter((vehicles: any) => vehicles.isCar === false)
-              .map((vehicle: any) => (
-                <CardVehicle vehicle={vehicle} id={vehicle.id} />
-              ))}
+              carrouselTitle="Motos"
+              gapBetweenItems="48px"
+              autoScroll={false}
+            >
+              <>*listar anuncios do usuário*</>
             </Carrousel>
-            
-          }
+          ) : (
+            <Carrousel
+              carrouselTitle="Motos"
+              gapBetweenItems="48px"
+              autoScroll={false}
+            >
+              {bikeVehicles.length > 0 ? (
+                bikeVehicles.map((vehicle: any) => (
+                  <CardVehicle vehicle={vehicle} id={vehicle.id} />
+                ))
+              ) : (
+                <MessageNotAdvert />
+              )}
+            </Carrousel>
+          )}
         </div>
       </AdvertsStyled>
       <ModalCreateAdvert />
