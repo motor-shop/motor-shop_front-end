@@ -13,6 +13,7 @@ import { useUser } from "../../Contexts/User";
 import loginSchema from "../../validations/LoginValidator";
 import ModalSendEmail from "../../components/ModalSendEmail";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const { loginUser } = useUser();
@@ -25,11 +26,19 @@ const Login = () => {
     formState: { errors },
   } = useForm<ILoginFunction>({ resolver: yupResolver(loginSchema()) });
 
+  const submit = (data: ILoginFunction) => {
+    toast.promise(loginUser(data), {
+      pending: "Realizando login...",
+      success: "Logado com sucesso!",
+      error: "Ocorreu um erro ao logar!",
+    });
+  };
+
   return (
     <Div>
       <Header />
       <FormContainer>
-        <form onSubmit={handleSubmit(loginUser)}>
+        <form onSubmit={handleSubmit(submit)}>
           <label className="titleForm">Login</label>
           <Input
             placeholder="Digitar usuário"
@@ -66,7 +75,7 @@ const Login = () => {
       </FormContainer>
       <ModalSendEmail closeModal={closeModal} setCloseModal={setCloseModal} />
       <Footer />
-      </Div>
+    </Div>
   );
 };
 
