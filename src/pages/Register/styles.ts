@@ -4,14 +4,17 @@ export const FormStyled = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
-  width: 411px;
+  align-items: center;
+  width: 100vw;
   height: 100%;
-  margin-left: 596px;
   margin-top: 46px;
   margin-bottom: 95px;
-  background: #fdfdfd;
-  border-radius: 4px;
+
+  .container {
+    border-radius: 4px;
+    background: #fdfdfd;
+    width: 411px;
+  }
 
   h1 {
     margin-top: 44px;
