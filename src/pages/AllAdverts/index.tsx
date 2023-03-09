@@ -14,7 +14,7 @@ import ModalCreateAdvert from "../../components/ModalCreateAdvert";
 
 const AllAdverts = () => {
   const { userMocked, user } = useUser();
-  const { vehiclesMocked, setCloseModalCreateAdvert } = useAdvert();
+  const { vehiclesMocked, setCloseModalCreateAdvert, vehicles } = useAdvert();
 
   return (
     <>
@@ -23,7 +23,7 @@ const AllAdverts = () => {
         <div className="profileContainer">
           <img src={profile} alt="imagem de perfil" />
           <div className="name">
-            <p className="profileName"> {userMocked.username}</p>
+            <p className="profileName"> {user.username}</p>
             {user.is_seller ? (
               <div className="isSeller">
                 <p> Anunciante</p>
@@ -55,37 +55,62 @@ const AllAdverts = () => {
       </AllAdvertStyled>
       <AdvertsStyled>
         <div className="cars">
+        {user.is_seller?
           <Carrousel
             carrouselTitle="Carros"
             gapBetweenItems="48px"
             autoScroll={false}
           >
-            {/* <CardVehicle vehicle={vehiclesMocked[0]} />
-            <CardVehicle vehicle={vehiclesMocked[1]} />
-            <CardVehicle vehicle={vehiclesMocked[2]} />
-            <CardVehicle vehicle={vehiclesMocked[0]} />
-            <CardVehicle vehicle={vehiclesMocked[1]} />
-            <CardVehicle vehicle={vehiclesMocked[2]} />
-            <CardVehicle vehicle={vehiclesMocked[0]} /> */}
-          </Carrousel>
+            
+            <> 
+            *listar anuncios do usuário*
+            </>
+            </Carrousel>
+            : 
+            <Carrousel
+            carrouselTitle="Carros"
+            gapBetweenItems="48px"
+            autoScroll={false}
+          >
+            
+            {vehicles
+              .filter((vehicles: any) => vehicles.isCar === true)
+              .map((vehicle: any) => (
+                <CardVehicle vehicle={vehicle} id={vehicle.id} />
+              ))}
+            </Carrousel>
+            
+          }
+          
         </div>
 
         <div className="motorcycles">
+        {user.is_seller?
           <Carrousel
             carrouselTitle="Motos"
             gapBetweenItems="48px"
             autoScroll={false}
-            paddingBottom={"120px"}
-            paddingTop={"210px"}
           >
-            {/* <CardVehicle vehicle={vehiclesMocked[0]} />
-            <CardVehicle vehicle={vehiclesMocked[1]} />
-            <CardVehicle vehicle={vehiclesMocked[2]} />
-            <CardVehicle vehicle={vehiclesMocked[0]} />
-            <CardVehicle vehicle={vehiclesMocked[1]} />
-            <CardVehicle vehicle={vehiclesMocked[2]} />
-            <CardVehicle vehicle={vehiclesMocked[0]} /> */}
-          </Carrousel>
+            
+            <> 
+            *listar anuncios do usuário*
+            </>
+            </Carrousel>
+            : 
+            <Carrousel
+            carrouselTitle="Motos"
+            gapBetweenItems="48px"
+            autoScroll={false}
+          >
+            
+            {vehicles
+              .filter((vehicles: any) => vehicles.isCar === false)
+              .map((vehicle: any) => (
+                <CardVehicle vehicle={vehicle} id={vehicle.id} />
+              ))}
+            </Carrousel>
+            
+          }
         </div>
       </AdvertsStyled>
       <ModalCreateAdvert />

@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+export const Container = styled.div`
+display: flex;
+justify-content: center;
+`
+
 export const FormStyled = styled.form`
   display: flex;
   flex-direction: column;
@@ -7,7 +12,10 @@ export const FormStyled = styled.form`
   align-items: flex-start;
   width: 411px;
   height: 100%;
-  margin-left: 596px;
+  @media screen and (max-width: 450px) {
+    width: hug;
+    }
+  
   margin-top: 46px;
   margin-bottom: 95px;
   background: #fdfdfd;
@@ -86,6 +94,13 @@ export const FormStyled = styled.form`
         width: 150px;
         margin-right: 10px;
       }
+
+      .errors{
+        display: flex;
+        flex-direction: column;
+      }
+
+     
     }
 
     .isSellerButton {
