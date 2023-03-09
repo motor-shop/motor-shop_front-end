@@ -97,6 +97,14 @@ interface IContextAdvert {
   setCloseModalCreateAdvert: React.Dispatch<React.SetStateAction<boolean>>;
   vehicles: Array<IVehicleDinamico>;
   vehiclesByUser: Array<IVehicleDinamico> | null;
+  closeModalSucessCreateAdvert: boolean;
+  setCloseModalSucessCreateAdvert: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
+  closeModalSucessUpdateAdvert: boolean;
+  setCloseModalSucessUpdateAdvert: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
 }
 
 interface IPropsAdvert {
@@ -171,8 +179,12 @@ export const Advert = ({ children }: IPropsAdvert) => {
 
   const [allAdverts, setAllAdverts] = useState<IAdvert[]>([]);
   const [advertsByUser, setAdvertsByUser] = useState<IAdvertsByUser>();
+  const [closeModalSucessCreateAdvert, setCloseModalSucessCreateAdvert] =
+    useState<boolean>(true);
+  const [closeModalSucessUpdateAdvert, setCloseModalSucessUpdateAdvert] =
+    useState<boolean>(true);
 
-  /* useEffect(() => {
+  useEffect(() => {
     async function allAdverts() {
       try {
         await api.get("/adverts").then((response) => {
@@ -188,7 +200,7 @@ export const Advert = ({ children }: IPropsAdvert) => {
     }
 
     allAdverts();
-  }, []); */
+  }, []);
 
   let vehicleAdvert = {};
 
@@ -237,6 +249,10 @@ export const Advert = ({ children }: IPropsAdvert) => {
         setCloseModalCreateAdvert,
         vehicles,
         vehiclesByUser,
+        closeModalSucessCreateAdvert,
+        setCloseModalSucessCreateAdvert,
+        closeModalSucessUpdateAdvert,
+        setCloseModalSucessUpdateAdvert,
       }}
     >
       {children}
