@@ -1,4 +1,4 @@
-import { api } from "../../services/api";
+import { api, config } from "../../services/api";
 import jwt_decode from "jwt-decode";
 import React, { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -79,6 +79,9 @@ interface IContextUser {
   userMocked: IUserMocked;
   closeModalUpdate: boolean;
   setCloseModalUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+  closeConfirmDeleteUser: boolean;
+  setCloseConfirmDeleteUser: React.Dispatch<React.SetStateAction<boolean>>;
+  deleteUserById: (userId: string) => Promise<void>;
   closeModalSuccess: boolean;
   setCloseModalSuccess: React.Dispatch<React.SetStateAction<boolean>>;
   isLogged: boolean;
@@ -106,6 +109,8 @@ export const User = ({ children }: IPropsUser) => {
   const navigate = useNavigate();
 
   const [closeModalUpdate, setCloseModalUpdate] = useState<boolean>(true);
+  const [closeConfirmDeleteUser, setCloseConfirmDeleteUser] = 
+        useState<boolean>(true)
   const [closeModalSuccess, setCloseModalSuccess] = useState<boolean>(true);
   const [closeModalUpdateProfile, setCloseModalUpdateProfile] =
     useState<boolean>(true);
@@ -136,17 +141,26 @@ export const User = ({ children }: IPropsUser) => {
     api
       .post("/login", data)
       .then((res) => {
-        localStorage.setItem("@TOKEN", res.data.data.token);
+        localStorage.setItem("@motors-shop:Token", res.data.data.token);
         const token = res.data.data.token;
         let decode: any = jwt_decode(token);
-        localStorage.setItem("@id", decode.sub);
-        localStorage.setItem("@addressId", res.data.data.userExists.adress.id);
+        localStorage.setItem("@motors-shop:id", decode.sub);
+        localStorage.setItem(
+          "@motors-shop:addressId",
+          res.data.data.userExists.adress.id
+        );
+        setUser(res.data.data.userExists);
+        navigate("/home", { replace: true });
         setUser(res.data.data.userExists);
         setIsLogged(true);
         navigate("/allAdverts", { replace: true });
       })
       .catch((err) => {});
   }
+
+  const deleteUserById = async (userId: string) => {
+    await api.delete(`/users/${userId}`, config());
+  };
 
   return (
     <UserContext.Provider
@@ -155,6 +169,9 @@ export const User = ({ children }: IPropsUser) => {
         loginUser,
         closeModalUpdate,
         setCloseModalUpdate,
+        closeConfirmDeleteUser,
+        setCloseConfirmDeleteUser,
+        deleteUserById,
         closeModalSuccess,
         setCloseModalSuccess,
         isLogged,

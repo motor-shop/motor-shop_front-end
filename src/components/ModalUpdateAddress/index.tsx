@@ -9,7 +9,6 @@ import { FormStyled } from "./styles";
 import ModalGlobal from "../ModalGlobal";
 
 const ModalUpdateAddress = () => {
-
   const { closeModalUpdate, setCloseModalUpdate } = useUser();
 
   const formSchema = yup.object().shape({
@@ -26,10 +25,8 @@ const ModalUpdateAddress = () => {
     formState: { errors },
   } = useForm<IAdress>({ resolver: yupResolver(formSchema) });
 
-
-    function addressUpdate(data: IAdress){
-
-    const id = localStorage.getItem('@addressId')
+  function addressUpdate(data: IAdress) {
+    const id = localStorage.getItem("@motors-shop:addressId");
 
     api
       .patch(`/address/${id}`, data)
@@ -38,10 +35,9 @@ const ModalUpdateAddress = () => {
       })
       .catch((err) => {
         console.log(err);
-        localStorage.removeItem(id!)
+        localStorage.removeItem(id!);
       });
   }
-
 
   return (
     <ModalGlobal

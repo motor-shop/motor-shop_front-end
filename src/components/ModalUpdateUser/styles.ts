@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 export const FormStyled = styled.form`
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
   p {
     font-weight: 500;
     font-size: 14px;

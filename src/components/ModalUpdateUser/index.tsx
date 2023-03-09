@@ -1,16 +1,21 @@
+
+import { useEffect, useState } from "react";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { api } from "../../services/api";
+import { api, config } from "../../services/api";
 import { IUserUpdate, useUser } from "../../Contexts/User";
 import { FormStyled } from "./styles";
 import ModalGlobal from "../ModalGlobal";
+import ConfirmDeleteUser from "../ConfirmDeleteUser";
+import jwtDecode from "jwt-decode";
 
 const ModalUpdateProfile = () => {
-  
-  const { closeModalUpdateProfile, setCloseModalUpdateProfile } = useUser();
+  const [closeModal, setCloseModal] = useState<boolean>(true);
+  const { closeModalUpdateProfile, setCloseModalUpdateProfile, setCloseConfirmDeleteUser } = useUser();
+  const [userLogged, setUserLogged] = useState<any>();
 
   const formSchema = yup.object().shape({
     username: yup.string(),
@@ -27,9 +32,8 @@ const ModalUpdateProfile = () => {
     formState: { errors },
   } = useForm<IUserUpdate>({ resolver: yupResolver(formSchema) });
 
-  function userUpdate(data: IUserUpdate){
-
-    const id = localStorage.getItem('@id')
+  function userUpdate(data: IUserUpdate) {
+    const id = localStorage.getItem("@motors-shop:id");
 
     api
       .patch(`/users/${id}`, data)
@@ -38,9 +42,20 @@ const ModalUpdateProfile = () => {
       })
       .catch((err) => {
         console.log(err);
-        localStorage.removeItem(id!)
+        localStorage.removeItem(id!);
       });
   }
+
+  useEffect(() => {
+    const token = localStorage.getItem("@motors-shop:Token");
+
+    if (token) {
+      const decoded: any = jwtDecode(token);
+      api
+        .get(`/users/${decoded.sub}`, config())
+        .then((response) => setUserLogged(response.data));
+    }
+  }, [closeModal]);
 
   return (
     <>
@@ -98,6 +113,22 @@ const ModalUpdateProfile = () => {
           <div className="finalButton">
             <Button
               type="button"
+              width="57%"
+              minButton={true}
+              color="var(--color-gray-2)"
+              background="var(--color-gray-6)"
+              borderColor="#DEE2E6"
+              backgroundHover="var(--color-gray-4)"
+              borderColorHover="var(--color-gray-4)"
+              onClick={() => {
+                setCloseModal(true);
+                setCloseConfirmDeleteUser(false);
+              }}
+            >
+              Excluir conta
+            </Button>
+            <Button
+              type="button"
               background=" #DEE2E6"
               borderColor="#DEE2E6"
               backgroundHover="#CED4DA"
@@ -125,6 +156,10 @@ const ModalUpdateProfile = () => {
           </div>
         </FormStyled>
       </ModalGlobal>
+      <Button onClick={() => setCloseModal(false)} type={"button"}>
+        botão abrir modal atualizar perfil
+      </Button>
+      {userLogged ? <ConfirmDeleteUser userId={userLogged.id} /> : null}
     </>
   );
 };
