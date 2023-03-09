@@ -47,7 +47,7 @@ export interface IAdvertRequest {
   is_car: boolean;
   cover_image: string;
   is_active: boolean;
-  image1: string
+  image1: string;
   images: Array<string>;
   is_selling: boolean;
 }
@@ -68,6 +68,19 @@ export interface IAdvertResponse {
 export interface IImage {
   id: string;
   url: string;
+}
+
+export interface IAdvertUpdate {
+  title?: string;
+  year?: number | string;
+  km?: number | string;
+  price?: number | string;
+  description?: string;
+  is_car?: boolean;
+  cover_image?: string;
+  is_active?: boolean;
+  images?: Array<string | undefined>;
+  is_selling?: boolean;
 }
 
 interface IContextAdvert {
@@ -151,7 +164,7 @@ export const Advert = ({ children }: IPropsAdvert) => {
 
   const [allAdverts, setAllAdverts] = useState<IAdvert[]>([]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     async function allAdverts() {
       try {
         await api.get("/adverts").then((response) => {
@@ -164,7 +177,7 @@ export const Advert = ({ children }: IPropsAdvert) => {
     }
 
     allAdverts();
-  }, []);
+  }, []); */
 
   let vehicleAdvert = {};
 
