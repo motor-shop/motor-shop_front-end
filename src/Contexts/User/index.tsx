@@ -75,7 +75,7 @@ export interface IUserUpdate {
 }
 
 interface IContextUser {
-  loginUser: (data: ILoginFunction) => void;
+  loginUser: (data: ILoginFunction) => Promise<unknown>;
   userMocked: IUserMocked;
   closeModalUpdate: boolean;
   setCloseModalUpdate: React.Dispatch<React.SetStateAction<boolean>>;
@@ -109,8 +109,8 @@ export const User = ({ children }: IPropsUser) => {
   const navigate = useNavigate();
 
   const [closeModalUpdate, setCloseModalUpdate] = useState<boolean>(true);
-  const [closeConfirmDeleteUser, setCloseConfirmDeleteUser] = 
-        useState<boolean>(true)
+  const [closeConfirmDeleteUser, setCloseConfirmDeleteUser] =
+    useState<boolean>(true);
   const [closeModalSuccess, setCloseModalSuccess] = useState<boolean>(true);
   const [closeModalUpdateProfile, setCloseModalUpdateProfile] =
     useState<boolean>(true);
@@ -137,26 +137,29 @@ export const User = ({ children }: IPropsUser) => {
     },
   };
 
-  function loginUser(data: ILoginFunction) {
-    api
-      .post("/login", data)
-      .then((res) => {
-        localStorage.setItem("@motors-shop:Token", res.data.data.token);
-        const token = res.data.data.token;
-        let decode: any = jwt_decode(token);
-        localStorage.setItem("@motors-shop:id", decode.sub);
-        localStorage.setItem(
-          "@motors-shop:addressId",
-          res.data.data.userExists.adress.id
-        );
-        setUser(res.data.data.userExists);
-        navigate("/home", { replace: true });
-        setUser(res.data.data.userExists);
-        setIsLogged(true);
-        navigate("/allAdverts", { replace: true });
-      })
-      .catch((err) => {});
-  }
+  const loginUser = async (data: ILoginFunction) => {
+    return new Promise((resolve, reject) => {
+      api
+        .post("/login", data)
+        .then((res) => {
+          localStorage.setItem("@TOKEN", res.data.data.token);
+          const token = res.data.data.token;
+          let decode: any = jwt_decode(token);
+          localStorage.setItem("@id", decode.sub);
+          localStorage.setItem(
+            "@addressId",
+            res.data.data.userExists.adress.id
+          );
+          setUser(res.data.data.userExists);
+          setIsLogged(true);
+          navigate("/allAdverts", { replace: true });
+          resolve("Login realizado com sucesso!");
+        })
+        .catch((err) => {
+          reject(new Error("Ocorreu um erro ao realizar o login!"));
+        });
+    });
+  };
 
   const deleteUserById = async (userId: string) => {
     await api.delete(`/users/${userId}`, config());
@@ -177,7 +180,7 @@ export const User = ({ children }: IPropsUser) => {
         isLogged,
         user,
         closeModalUpdateProfile,
-        setCloseModalUpdateProfile
+        setCloseModalUpdateProfile,
       }}
     >
       {children}
