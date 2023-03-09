@@ -16,6 +16,10 @@ export const HeaderStyled = styled.header`
     margin-left: 20px;
     margin-right: 20px;
 
+    .logo {
+      cursor: pointer;
+    }
+
     .headerDropDown {
       border: none;
       background: var(--color-whiteFixed);
@@ -74,7 +78,6 @@ export const HeaderStyled = styled.header`
           background-color: var(--color-gray-10);
           margin: 0;
           margin-right: 35px;
-          
         }
       }
 
@@ -179,7 +182,6 @@ export const HeaderStyled = styled.header`
         border-radius: 4px;
         line-height: 28px;
         width: 200px;
-        
       }
 
       .menu.close {
