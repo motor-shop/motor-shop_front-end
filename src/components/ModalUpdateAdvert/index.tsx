@@ -331,9 +331,6 @@ const ModalUpdateAdvert = () => {
           </form>
         </Container>
       </ModalGlobal>
-      <Button onClick={() => setCloseModalTest(false)} type={"button"}>
-        botão abrir modal update anuncio
-      </Button>
       <ModalDeleteAdvert
         closeModal={closeModalDeleteAdvert}
         setCloseModal={setCloseModalDeleteAdvert}

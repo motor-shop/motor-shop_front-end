@@ -69,8 +69,9 @@ const Home = () => {
         paddingBottom="200px"
         paddingTop="100px"
       >
-        <MessageNotAdvert />
+        <MessageNotAdvert /> 
       </Carrousel>
+      </div>
         <div ref={carRef} id="car">
       <Carrousel
         carrouselTitle="Carros"
@@ -87,6 +88,7 @@ const Home = () => {
           <MessageNotAdvert />
         )}
       </Carrousel>
+      </div>
           <div ref={motoRef} id="moto">
       <Carrousel
         carrouselTitle="Motos"
@@ -103,13 +105,7 @@ const Home = () => {
           <MessageNotAdvert />
         )}
       </Carrousel>
-      <ModalGlobal
-        title="teste"
-        closeModal={closeModalTest}
-        setCloseModal={setCloseModalTest}
-      >
-        <p>teste</p>
-      </ModalGlobal>
+      </div>
       <ModalUpdateAdvert />
       <ModalCreateAdvert />
       <ModalUpdateProfile />
