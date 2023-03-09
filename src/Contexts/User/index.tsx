@@ -2,6 +2,7 @@ import { api, config } from "../../services/api";
 import jwt_decode from "jwt-decode";
 import React, { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export interface IAdress {
   zip_code: string;
@@ -93,6 +94,7 @@ interface IContextUser {
   user: IUser;
   closeModalUpdateProfile: boolean;
   setCloseModalUpdateProfile: React.Dispatch<React.SetStateAction<boolean>>;
+  registerUser: (data: IUserRequest) => Promise<unknown>;
 }
 
 interface IPropsUser {
@@ -166,6 +168,31 @@ export const User = ({ children }: IPropsUser) => {
     });
   };
 
+  const registerUser = (data: IUserRequest) => {
+    return new Promise((resolve, reject) => {
+      api
+        .post("/users", data)
+        .then((response) => {
+          console.log(response);
+          setCloseModalSuccess(false);
+          resolve("registro realizado com sucesso!");
+        })
+        .catch((err) => {
+          toast.error(err.response.data.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+          reject(new Error("Ocorreu um erro ao realizar o registro!"));
+        });
+    });
+  };
+
   const deleteUserById = async (userId: string) => {
     await api.delete(`/users/${userId}`, config());
   };
@@ -186,6 +213,7 @@ export const User = ({ children }: IPropsUser) => {
         user,
         closeModalUpdateProfile,
         setCloseModalUpdateProfile,
+        registerUser,
       }}
     >
       {children}
