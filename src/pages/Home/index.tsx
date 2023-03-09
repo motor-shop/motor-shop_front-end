@@ -86,7 +86,7 @@ const Home = () => {
       <ModalUpdateProfile />
       <ModalUpdateAddress />
       <Footer />
-    </ HomeStyled>
+    </HomeStyled>
   );
 };
 
