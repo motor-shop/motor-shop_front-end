@@ -76,6 +76,19 @@ export interface IImage {
   url: string;
 }
 
+export interface IAdvertUpdate {
+  title?: string;
+  year?: number | string;
+  km?: number | string;
+  price?: number | string;
+  description?: string;
+  is_car?: boolean;
+  cover_image?: string;
+  is_active?: boolean;
+  images?: Array<string | undefined>;
+  is_selling?: boolean;
+}
+
 interface IContextAdvert {
   vehiclesMocked: Array<IVehicle>;
   advertMocked: IAdvertResponse;
@@ -84,6 +97,14 @@ interface IContextAdvert {
   setCloseModalCreateAdvert: React.Dispatch<React.SetStateAction<boolean>>;
   vehicles: Array<IVehicleDinamico>;
   vehiclesByUser: Array<IVehicleDinamico> | null;
+  closeModalSucessCreateAdvert: boolean;
+  setCloseModalSucessCreateAdvert: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
+  closeModalSucessUpdateAdvert: boolean;
+  setCloseModalSucessUpdateAdvert: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
 }
 
 interface IPropsAdvert {
@@ -158,6 +179,10 @@ export const Advert = ({ children }: IPropsAdvert) => {
 
   const [allAdverts, setAllAdverts] = useState<IAdvert[]>([]);
   const [advertsByUser, setAdvertsByUser] = useState<IAdvertsByUser>();
+  const [closeModalSucessCreateAdvert, setCloseModalSucessCreateAdvert] =
+    useState<boolean>(true);
+  const [closeModalSucessUpdateAdvert, setCloseModalSucessUpdateAdvert] =
+    useState<boolean>(true);
 
   useEffect(() => {
     async function allAdverts() {
@@ -224,6 +249,10 @@ export const Advert = ({ children }: IPropsAdvert) => {
         setCloseModalCreateAdvert,
         vehicles,
         vehiclesByUser,
+        closeModalSucessCreateAdvert,
+        setCloseModalSucessCreateAdvert,
+        closeModalSucessUpdateAdvert,
+        setCloseModalSucessUpdateAdvert,
       }}
     >
       {children}
