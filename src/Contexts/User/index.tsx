@@ -149,10 +149,10 @@ export const User = ({ children }: IPropsUser) => {
       api
         .post("/login", data)
         .then((res) => {
-          localStorage.setItem("@TOKEN", res.data.data.token);
+          localStorage.setItem("@motors-shop:Token", res.data.data.token);
           const token = res.data.data.token;
           let decode: any = jwt_decode(token);
-          localStorage.setItem("@id", decode.sub);
+          localStorage.setItem("@motors-shop:id", decode.sub);
           localStorage.setItem(
             "@addressId",
             res.data.data.userExists.adress.id
