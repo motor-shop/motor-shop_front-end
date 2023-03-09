@@ -1,6 +1,6 @@
 import { api, config } from "../../services/api";
 import jwt_decode from "jwt-decode";
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -91,6 +91,7 @@ interface IContextUser {
   closeModalSuccess: boolean;
   setCloseModalSuccess: React.Dispatch<React.SetStateAction<boolean>>;
   isLogged: boolean;
+  setIsLogged: React.Dispatch<React.SetStateAction<boolean>>;
   user: IUser;
   closeModalUpdateProfile: boolean;
   setCloseModalUpdateProfile: React.Dispatch<React.SetStateAction<boolean>>;
@@ -123,6 +124,8 @@ export const User = ({ children }: IPropsUser) => {
     useState<boolean>(true);
   const [user, setUser] = useState<IUser>({} as IUser);
   const [isLogged, setIsLogged] = useState<boolean>(false);
+
+  
 
   const userMocked = {
     username: "Rodrigo Tavares",
@@ -197,6 +200,8 @@ export const User = ({ children }: IPropsUser) => {
     await api.delete(`/users/${userId}`, config());
   };
 
+
+
   return (
     <UserContext.Provider
       value={{
@@ -210,6 +215,7 @@ export const User = ({ children }: IPropsUser) => {
         closeModalSuccess,
         setCloseModalSuccess,
         isLogged,
+        setIsLogged,
         user,
         closeModalUpdateProfile,
         setCloseModalUpdateProfile,
