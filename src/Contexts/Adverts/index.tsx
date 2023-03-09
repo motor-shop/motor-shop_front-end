@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { api, config } from "../../services/api";
+import { IUser } from "../User";
 
 export interface IVehicle {
   description: string;
@@ -38,6 +39,11 @@ export interface IAdvert {
   user: any;
 }
 
+export interface IAdvertsByUser {
+  user: IUser;
+  adverts: Array<IAdvert>;
+}
+
 export interface IAdvertRequest {
   title: string;
   year: number;
@@ -47,7 +53,7 @@ export interface IAdvertRequest {
   is_car: boolean;
   cover_image: string;
   is_active: boolean;
-  image1: string
+  image1: string;
   images: Array<string>;
   is_selling: boolean;
 }
@@ -70,6 +76,19 @@ export interface IImage {
   url: string;
 }
 
+export interface IAdvertUpdate {
+  title?: string;
+  year?: number | string;
+  km?: number | string;
+  price?: number | string;
+  description?: string;
+  is_car?: boolean;
+  cover_image?: string;
+  is_active?: boolean;
+  images?: Array<string | undefined>;
+  is_selling?: boolean;
+}
+
 interface IContextAdvert {
   vehiclesMocked: Array<IVehicle>;
   advertMocked: IAdvertResponse;
@@ -77,6 +96,15 @@ interface IContextAdvert {
   closeModalCreateAdvert: boolean;
   setCloseModalCreateAdvert: React.Dispatch<React.SetStateAction<boolean>>;
   vehicles: Array<IVehicleDinamico>;
+  vehiclesByUser: Array<IVehicleDinamico> | null;
+  closeModalSucessCreateAdvert: boolean;
+  setCloseModalSucessCreateAdvert: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
+  closeModalSucessUpdateAdvert: boolean;
+  setCloseModalSucessUpdateAdvert: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
 }
 
 interface IPropsAdvert {
@@ -150,13 +178,21 @@ export const Advert = ({ children }: IPropsAdvert) => {
   };
 
   const [allAdverts, setAllAdverts] = useState<IAdvert[]>([]);
+  const [advertsByUser, setAdvertsByUser] = useState<IAdvertsByUser>();
+  const [closeModalSucessCreateAdvert, setCloseModalSucessCreateAdvert] =
+    useState<boolean>(true);
+  const [closeModalSucessUpdateAdvert, setCloseModalSucessUpdateAdvert] =
+    useState<boolean>(true);
 
   useEffect(() => {
     async function allAdverts() {
       try {
         await api.get("/adverts").then((response) => {
-          console.log("response", response.data);
           setAllAdverts(response.data);
+        });
+        await api.get("/adverts/user", config()).then((response) => {
+          setAdvertsByUser(response.data);
+          console.log(response);
         });
       } catch (error) {
         console.log(error);
@@ -183,6 +219,26 @@ export const Advert = ({ children }: IPropsAdvert) => {
       })
   );
 
+  let vehicleByUser = {};
+
+  let vehiclesByUser: IVehicleDinamico[] | null = advertsByUser?.adverts
+    ? advertsByUser.adverts.map(
+        (advert) =>
+          (vehicleByUser = {
+            vehicleImg: advert.cover_image,
+            description: advert.description,
+            title: advert.title,
+            tags: [advert.km, advert.year],
+            value: advert.price,
+            advertiserName: advertsByUser.user.username,
+            advertiserImage:
+              "https://cdn-icons-png.flaticon.com/512/20/20863.png",
+            isCar: advert.is_car,
+            id: advert.id,
+          })
+      )
+    : null;
+
   return (
     <AdvertContext.Provider
       value={{
@@ -192,6 +248,11 @@ export const Advert = ({ children }: IPropsAdvert) => {
         closeModalCreateAdvert,
         setCloseModalCreateAdvert,
         vehicles,
+        vehiclesByUser,
+        closeModalSucessCreateAdvert,
+        setCloseModalSucessCreateAdvert,
+        closeModalSucessUpdateAdvert,
+        setCloseModalSucessUpdateAdvert,
       }}
     >
       {children}

@@ -12,11 +12,18 @@ import ModalUpdateAdvert from "../../components/ModalUpdateAdvert";
 import ModalCreateAdvert from "../../components/ModalCreateAdvert";
 import ModalUpdateProfile from "../../components/ModalUpdateUser";
 import ModalUpdateAddress from "../../components/ModalUpdateAddress";
+import MessageNotAdvert from "../../components/MessageNotAdverts";
 
 const Home = () => {
   const { vehicles } = useAdvert();
 
   const [closeModalTest, setCloseModalTest] = useState<boolean>(true);
+  const carVehicles = vehicles.filter(
+    (vehicles: any) => vehicles.isCar === true
+  );
+  const bikeVehicles = vehicles.filter(
+    (vehicles: any) => vehicles.isCar === false
+  );
 
   const carRef = useRef<HTMLDivElement>(null);
   const motoRef = useRef<HTMLDivElement>(null);
@@ -62,39 +69,40 @@ const Home = () => {
         paddingBottom="200px"
         paddingTop="100px"
       >
-        <CardAuctionCar />
+        <MessageNotAdvert />
       </Carrousel>
-      </div>
-      <div ref={carRef} id="car">
-        <Carrousel
-          carrouselTitle="Carros"
-          gapBetweenItems="48px"
-          autoScroll={true}
-          autoScrollTime="slow"
-          paddingBottom="220px"
-        >
-          {vehicles
-            .filter((vehicles: any) => vehicles.isCar === true)
-            .map((vehicle: any) => (
-              <CardVehicle vehicle={vehicle} id={vehicle.id} />
-            ))}
-        </Carrousel>
-      </div>
-      <div ref={motoRef} id="moto">
-        <Carrousel
-          carrouselTitle="Motos"
-          gapBetweenItems="48px"
-          autoScroll={true}
-          autoScrollTime="slow"
-          paddingBottom="120px"
-        >
-          {vehicles
-            .filter((vehicle: any) => vehicle.isCar === false)
-            .map((vehicle: any) => (
-              <CardVehicle vehicle={vehicle} id={vehicle.id} />
-            ))}
-        </Carrousel>
-      </div>
+        <div ref={carRef} id="car">
+      <Carrousel
+        carrouselTitle="Carros"
+        gapBetweenItems="48px"
+        autoScroll={true}
+        autoScrollTime="slow"
+        paddingBottom="220px"
+      >
+        {carVehicles.length > 0 ? (
+          carVehicles.map((vehicle: any) => (
+            <CardVehicle vehicle={vehicle} id={vehicle.id} />
+          ))
+        ) : (
+          <MessageNotAdvert />
+        )}
+      </Carrousel>
+          <div ref={motoRef} id="moto">
+      <Carrousel
+        carrouselTitle="Motos"
+        gapBetweenItems="48px"
+        autoScroll={true}
+        autoScrollTime="slow"
+        paddingBottom="120px"
+      >
+        {bikeVehicles.length > 0 ? (
+          bikeVehicles.map((vehicle: any) => (
+            <CardVehicle vehicle={vehicle} id={vehicle.id} />
+          ))
+        ) : (
+          <MessageNotAdvert />
+        )}
+      </Carrousel>
       <ModalGlobal
         title="teste"
         closeModal={closeModalTest}

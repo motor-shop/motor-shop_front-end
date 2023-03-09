@@ -1,4 +1,4 @@
-import { IImage, useAdvert } from "../../Contexts/Adverts";
+import { IAdvertUpdate, IImage, useAdvert } from "../../Contexts/Adverts";
 import { useState, useEffect } from "react";
 import Button from "../Button";
 import Input from "../Input";
@@ -6,7 +6,6 @@ import ModalGlobal from "../ModalGlobal";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import UpdateAdvertSchema from "../../validations/UpdateAdvert";
-import { IAdvertRequest } from "../../Contexts/Adverts";
 import { Container, ContainerButtons, ContainerInputs } from "./style";
 import ModalDeleteAdvert from "../ModalDeleteAdvert";
 import { api } from "../../services/api";
@@ -25,6 +24,10 @@ const ModalUpdateAdvert = () => {
   const [isActive, setIsActive] = useState<boolean>(advertMocked.is_active);
   const [closeModalDeleteAdvert, setCloseModalDeleteAdvert] = useState(true);
 
+  //const token = localStorage.getItem("@TOKEN");
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkMjAyMGp1bmlvckBnbWFpbC5jb20iLCJpYXQiOjE2NzgzOTEzNzQsImV4cCI6MTY3ODQ3Nzc3NCwic3ViIjoiMDk5ZjcxMjktZDllMy00YTAyLWE2ZjMtODMzNTZmYzM0Mjc1In0.5c6o6YEm02-7ZUxvZJ_KiHSdaT3ZHJverveh-WQ_FTo";
+
   useEffect(() => {
     setArrayImages([...advertMocked.images]);
   }, []);
@@ -33,14 +36,59 @@ const ModalUpdateAdvert = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IAdvertRequest>({
+  } = useForm<IAdvertUpdate>({
     resolver: yupResolver(UpdateAdvertSchema()),
   });
 
-  const registerIn = (data: IAdvertRequest) => {
+  const registerIn = (data: any) => {
+    const formatedPrice = (string: string) => Number(string.replace(",", "."));
+
+    data.title = data.title !== "" ? data.title : advertMocked.title;
+    data.year = data.year !== "" ? Number(data.year) : advertMocked.year;
+    data.km = data.km !== "" ? Number(data.km) : advertMocked.km;
+    data.price =
+      data.price !== "" ? formatedPrice(data.price) : advertMocked.price;
+    data.description =
+      data.description !== "" ? data.description : advertMocked.description;
+    data.is_car = isCar;
+    data.cover_image =
+      data.cover_image !== "" ? data.cover_image : advertMocked.cover_image;
+    data.is_active = isActive;
+    data.is_selling = isSeller;
+
+    const imagensFull = arrayImages
+      .map((img, i) => {
+        let imagem: string = data[`imagem${i + 1}`];
+        delete data[`imagem${i + 1}`];
+
+        if (imagem !== "") {
+          return imagem;
+        }
+
+        try {
+          imagem = advertMocked.images[i].url;
+          return imagem;
+        } catch (error) {
+          return undefined;
+        }
+      })
+      .filter((elem) => elem !== undefined);
+
+    data.images = imagensFull;
+
     api
-      .patch(`http://localhost:3001/adverts/${"123"}`, data)
-      .then((res) => {})
+      .patch(
+        `http://localhost:3001/adverts/${"31bb4b9b-d0e1-42c9-9e1f-1355cf3259e3"}`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -224,7 +272,7 @@ const ModalUpdateAdvert = () => {
             />
             {arrayImages.map((image, i) => (
               <Input
-                key={image.id}
+                key={i}
                 placeholder={image.url}
                 label={`${i + 1}º imagem`}
                 type="text"
@@ -283,9 +331,9 @@ const ModalUpdateAdvert = () => {
           </form>
         </Container>
       </ModalGlobal>
-      {/* <Button onClick={() => setCloseModalTest(false)} type={"button"}>
+      <Button onClick={() => setCloseModalTest(false)} type={"button"}>
         botão abrir modal update anuncio
-      </Button> */}
+      </Button>
       <ModalDeleteAdvert
         closeModal={closeModalDeleteAdvert}
         setCloseModal={setCloseModalDeleteAdvert}

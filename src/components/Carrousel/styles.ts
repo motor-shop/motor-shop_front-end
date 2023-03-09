@@ -29,7 +29,7 @@ export const CarrouselStyled = styled.div<iPropsCarrousel>`
     padding-left: 23px;
     width: 100vw;
     height: 370px;
-    overflow: hidden;
+    overflow: scroll;
 
     display: flex;
     gap: ${({ gapBetweenItems }) =>
