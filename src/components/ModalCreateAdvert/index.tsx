@@ -54,11 +54,12 @@ const ModalCreateAdvert = () => {
 
   const formSchema = yup.object().shape({
     title: yup.string().required("Titulo obrigatório"),
-    year: yup.number().required("Ano obrigatório"),
-    km: yup.number().required("Km obrigatório"),
-    price: yup.number().required("Preço obrigatório"),
+    year: yup.string().required("Ano obrigatório"),
+    km: yup.string().required("Km obrigatório"),
+    price: yup.string().required("Preço obrigatório"),
     description: yup.string().required("Descrição obrigatório"),
     cover_image: yup.string().required("Imagem de capa obrigatório"),
+    image1: yup.string().required("Imagem obrigatório"),
   });
 
   const {
@@ -139,8 +140,9 @@ const ModalCreateAdvert = () => {
             register={register}
             registerName="title"
           />
-
+          <span> {errors.title?.message}</span>
           <div className="info">
+          <div className="errors">
             <Input
               placeholder="Digitar ano"
               label="Ano"
@@ -148,6 +150,9 @@ const ModalCreateAdvert = () => {
               register={register}
               registerName="year"
             />
+            <span> {errors.year?.message}</span>
+            </div>
+            <div className="errors">
             <Input
               placeholder="0"
               label="Quilometragem"
@@ -155,6 +160,9 @@ const ModalCreateAdvert = () => {
               register={register}
               registerName="km"
             />
+            <span> {errors.km?.message}</span>
+            </div>
+            <div className="errors">
             <Input
               placeholder="Digitar preço"
               label="Preço"
@@ -162,6 +170,8 @@ const ModalCreateAdvert = () => {
               register={register}
               registerName="price"
             />
+            <span> {errors.price?.message}</span>
+            </div>
           </div>
           <div className="containerDescription">
             <Input
@@ -171,6 +181,7 @@ const ModalCreateAdvert = () => {
               register={register}
               registerName="description"
             />
+            <span> {errors.description?.message}</span>
           </div>
           <p>Tipo de veículo</p>
           <div className="containerCar">
@@ -234,6 +245,7 @@ const ModalCreateAdvert = () => {
             register={register}
             registerName="cover_image"
           />
+          <span> {errors.cover_image?.message}</span>
           <Input
             placeholder="Inserir URL da imagem"
             label="1° Imagem da galeria"
@@ -241,7 +253,7 @@ const ModalCreateAdvert = () => {
             register={register}
             registerName="image1"
           />
-
+          <span> {errors.image1?.message}</span>
           {countMap.map(() => (
             <AddImage />
           ))}

@@ -19,7 +19,7 @@ const ModalUpdateProfile = () => {
 
   const formSchema = yup.object().shape({
     username: yup.string(),
-    email: yup.string().email("E-mail inválido"),
+    email: yup.string().email("E-mail inválido!"),
     cpf: yup.string(),
     cellphone: yup.string(),
     birth_at: yup.string(),
@@ -80,6 +80,7 @@ const ModalUpdateProfile = () => {
             register={register}
             registerName="email"
           />
+          <span> {errors.email?.message}</span>
           <Input
             label="CPF"
             placeholder="000.000.000-00"
@@ -156,9 +157,6 @@ const ModalUpdateProfile = () => {
           </div>
         </FormStyled>
       </ModalGlobal>
-      <Button onClick={() => setCloseModal(false)} type={"button"}>
-        botão abrir modal atualizar perfil
-      </Button>
       {userLogged ? <ConfirmDeleteUser userId={userLogged.id} /> : null}
     </>
   );

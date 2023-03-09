@@ -6,7 +6,6 @@ import Footer from "../../components/Footer";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { api } from "../../services/api";
 import { IUserRequest, useUser } from "../../Contexts/User";
 import { FormStyled } from "./styles";
 import ModalSuccess from "../../components/ModalSuccess";
@@ -17,23 +16,26 @@ const Register = () => {
   const { setCloseModalSuccess, registerUser } = useUser();
 
   const formSchema = yup.object().shape({
-    username: yup.string().required("Nome obrigatório"),
-    email: yup.string().required("Email obrigatório").email("E-mail inválido"),
-    cpf: yup.string().required("CPF obrigatório"),
-    cellphone: yup.string().required("Celular obrigatório"),
-    birth_at: yup.string().required("Data de nascimento obrigatória"),
-    description: yup.string().required("Descrição obrigatória"),
-    password: yup.string().required("Imagem de capa obrigatório"),
+    username: yup.string().required("Nome obrigatório!"),
+    email: yup
+      .string()
+      .required("Email obrigatório!")
+      .email("E-mail inválido!"),
+    cpf: yup.string().required("CPF obrigatório!"),
+    cellphone: yup.string().required("Celular obrigatório!"),
+    birth_at: yup.string().required("Data de nascimento obrigatória!"),
+    description: yup.string().required("Descrição obrigatória!"),
+    password: yup.string().required("Senha obrigatória!"),
     confirm_password: yup
       .string()
-      .required("Senha obrigatório")
-      .oneOf([yup.ref("password")], "senhas diferentes"),
+      .required("Senha obrigatório!")
+      .oneOf([yup.ref("password")], "Senhas diferentes!"),
     zip_code: yup.string(),
-    state: yup.string().required("Estado obrigatório"),
-    city: yup.string().required("Cidade obrigatório"),
-    street: yup.string().required("Rua obrigatório"),
-    house_number: yup.number().required("Número obrigatório"),
-    complement: yup.string(),
+    state: yup.string().required("Estado obrigatório!"),
+    city: yup.string().required("Cidade obrigatório!"),
+    street: yup.string().required("Rua obrigatório!"),
+    house_number: yup.string().required("Número obrigatório!"),
+    complement: yup.string().required("Complemento obrigatório!"),
   });
 
   const {
@@ -52,6 +54,7 @@ const Register = () => {
       house_number: data.house_number,
       complement: data.complement,
     };
+
     toast.promise(registerUser(data), {
       pending: "Cadastrando conta...",
       success: "Cadastrado com sucesso!",
@@ -74,6 +77,7 @@ const Register = () => {
               register={register}
               registerName="username"
             />
+            <span> {errors.username?.message}</span>
             <Input
               label="Email"
               placeholder="Ex: samuel@kenzie.com.br"
@@ -81,6 +85,7 @@ const Register = () => {
               register={register}
               registerName="email"
             />
+            <span> {errors.email?.message}</span>
             <Input
               label="CPF"
               placeholder="000.000.000-00"
@@ -88,6 +93,7 @@ const Register = () => {
               register={register}
               registerName="cpf"
             />
+            <span> {errors.cpf?.message}</span>
             <Input
               label="Celular"
               placeholder="(DDD) 90000-0000"
@@ -95,6 +101,7 @@ const Register = () => {
               register={register}
               registerName="cellphone"
             />
+            <span> {errors.cellphone?.message}</span>
             <Input
               label="Data de Nascimento"
               placeholder="0000/00/00"
@@ -102,6 +109,7 @@ const Register = () => {
               register={register}
               registerName="birth_at"
             />
+            <span> {errors.birth_at?.message}</span>
             <Input
               label="Descrição"
               placeholder="Digitar descrição"
@@ -109,6 +117,7 @@ const Register = () => {
               register={register}
               registerName="description"
             />
+            <span> {errors.description?.message}</span>
           </div>
           <div className="containerAddressInfo">
             <p> Informações de Endereço</p>
@@ -119,21 +128,28 @@ const Register = () => {
               register={register}
               registerName="zip_code"
             />
+            <span> {errors.zip_code?.message}</span>
             <div className="addressInfo2">
-              <Input
-                label="Estado"
-                placeholder="Digitar Estado"
-                type="text"
-                register={register}
-                registerName="state"
-              />
-              <Input
-                label="Cidade"
-                placeholder="Digitar cidade"
-                type="text"
-                register={register}
-                registerName="city"
-              />
+              <div className="errors">
+                <Input
+                  label="Estado"
+                  placeholder="Digitar Estado"
+                  type="text"
+                  register={register}
+                  registerName="state"
+                />
+                <span> {errors.state?.message}</span>
+              </div>
+              <div className="errors">
+                <Input
+                  label="Cidade"
+                  placeholder="Digitar cidade"
+                  type="text"
+                  register={register}
+                  registerName="city"
+                />
+                <span> {errors.city?.message}</span>
+              </div>
             </div>
             <Input
               label="Rua"
@@ -142,50 +158,31 @@ const Register = () => {
               register={register}
               registerName="street"
             />
+            <span> {errors.street?.message}</span>
             <div className="addressInfo2">
-              <Input
-                label="Número"
-                placeholder="Digitar número"
-                type="text"
-                register={register}
-                registerName="house_number"
-              />
-              <Input
-                label="Complemento"
-                placeholder="Ex: apart 307"
-                type="text"
-                register={register}
-                registerName="complement"
-              />
+              <div className="errors">
+                <Input
+                  label="Número"
+                  placeholder="Digitar número"
+                  type="text"
+                  register={register}
+                  registerName="house_number"
+                />
+                <span> {errors.house_number?.message}</span>
+              </div>
+              <div className="errors">
+                <Input
+                  label="Complemento"
+                  placeholder="Ex: apart 307"
+                  type="text"
+                  register={register}
+                  registerName="complement"
+                />
+                <span> {errors.complement?.message}</span>
+              </div>
             </div>
             <p> Tipo de conta</p>
             <div className="isSellerButton">
-              {isSeller ? (
-                <Button
-                  type="button"
-                  background="#4529E6"
-                  width="152px"
-                  fontSize="16px"
-                  minButton={true}
-                >
-                  Comprador
-                </Button>
-              ) : (
-                <Button
-                  type="button"
-                  background=" #FFFFFF"
-                  backgroundHover="#212529"
-                  borderColorHover="#212529"
-                  borderColor="#ADB5BD"
-                  width="152px"
-                  fontSize="16px"
-                  color="#0B0D0D"
-                  minButton={true}
-                  onClick={() => setIsSeller(true)}
-                >
-                  Comprador
-                </Button>
-              )}
               {!isSeller ? (
                 <Button
                   type="button"
@@ -194,7 +191,7 @@ const Register = () => {
                   fontSize="16px"
                   minButton={true}
                 >
-                  Anunciante
+                  Comprador
                 </Button>
               ) : (
                 <Button
@@ -209,6 +206,32 @@ const Register = () => {
                   minButton={true}
                   onClick={() => setIsSeller(false)}
                 >
+                  Comprador
+                </Button>
+              )}
+              {isSeller ? (
+                <Button
+                  type="button"
+                  background="#4529E6"
+                  width="152px"
+                  fontSize="16px"
+                  minButton={true}
+                >
+                  Anunciante
+                </Button>
+              ) : (
+                <Button
+                  type="button"
+                  background=" #FFFFFF"
+                  backgroundHover="#212529"
+                  borderColorHover="#212529"
+                  borderColor="#ADB5BD"
+                  width="152px"
+                  fontSize="16px"
+                  color="#0B0D0D"
+                  minButton={true}
+                  onClick={() => setIsSeller(true)}
+                >
                   Anunciante
                 </Button>
               )}
@@ -220,6 +243,7 @@ const Register = () => {
               register={register}
               registerName="password"
             />
+            <span> {errors.password?.message}</span>
             <Input
               label="Confirmar Senha"
               placeholder="Digitar senha"
@@ -227,6 +251,7 @@ const Register = () => {
               register={register}
               registerName="confirm_password"
             />
+            <span> {errors.confirm_password?.message}</span>
           </div>
           <div className="finalButton">
             <Button

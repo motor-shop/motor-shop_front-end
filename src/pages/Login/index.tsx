@@ -47,6 +47,7 @@ const Login = () => {
             register={register}
             registerName="username"
           />
+          <span> {errors.username?.message}</span>
           <Input
             placeholder="Digitar senha"
             label="Senha"
@@ -54,6 +55,7 @@ const Login = () => {
             register={register}
             registerName="password"
           />
+          <span> {errors.password?.message}</span>
           <div className="containerButtonResetPassword">
             <button
               className="buttonResetPassword"

@@ -47,6 +47,7 @@ export interface IAdvertRequest {
   is_car: boolean;
   cover_image: string;
   is_active: boolean;
+  image1: string
   images: Array<string>;
   is_selling: boolean;
 }

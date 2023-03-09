@@ -7,8 +7,13 @@ export const FormStyled = styled.form`
   align-items: center;
   width: 100vw;
   height: 100%;
+
   margin-top: 46px;
   margin-bottom: 95px;
+
+  @media screen and (max-width: 450px) {
+    width: hug;
+  }
 
   .container {
     border-radius: 4px;
@@ -88,6 +93,11 @@ export const FormStyled = styled.form`
       input {
         width: 150px;
         margin-right: 10px;
+      }
+
+      .errors {
+        display: flex;
+        flex-direction: column;
       }
     }
 

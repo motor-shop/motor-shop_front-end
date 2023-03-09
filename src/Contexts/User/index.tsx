@@ -50,7 +50,12 @@ export interface IUserRequest {
   password: string;
   confirm_password: string;
   is_seller: boolean;
-  adress: IAdress;
+  zip_code: string;
+  state: string;
+  city: string;
+  street: string;
+  house_number: number;
+  complement: string;
 }
 
 export interface IUserResponse {
