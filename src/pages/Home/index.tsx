@@ -14,7 +14,7 @@ import ModalUpdateProfile from "../../components/ModalUpdateUser";
 import ModalUpdateAddress from "../../components/ModalUpdateAddress";
 
 const Home = () => {
-  const { vehiclesMocked } = useAdvert();
+  const { vehicles } = useAdvert();
 
   const [closeModalTest, setCloseModalTest] = useState<boolean>(true);
 
@@ -50,13 +50,11 @@ const Home = () => {
         autoScrollTime="slow"
         paddingBottom="220px"
       >
-        <CardVehicle vehicle={vehiclesMocked[0]} />
-        <CardVehicle vehicle={vehiclesMocked[1]} />
-        <CardVehicle vehicle={vehiclesMocked[2]} />
-        <CardVehicle vehicle={vehiclesMocked[0]} />
-        <CardVehicle vehicle={vehiclesMocked[1]} />
-        <CardVehicle vehicle={vehiclesMocked[2]} />
-        <CardVehicle vehicle={vehiclesMocked[0]} />
+        {vehicles
+          .filter((vehicles: any) => vehicles.isCar === true)
+          .map((vehicle: any) => (
+            <CardVehicle vehicle={vehicle} id={vehicle.id} />
+          ))}
       </Carrousel>
       <Carrousel
         carrouselTitle="Motos"
@@ -65,14 +63,11 @@ const Home = () => {
         autoScrollTime="slow"
         paddingBottom="120px"
       >
-        <CardVehicle vehicle={vehiclesMocked[2]} />
-        <CardVehicle vehicle={vehiclesMocked[2]} />
-        <CardVehicle vehicle={vehiclesMocked[2]} />
-        <CardVehicle vehicle={vehiclesMocked[2]} />
-        <CardVehicle vehicle={vehiclesMocked[2]} />
-        <CardVehicle vehicle={vehiclesMocked[2]} />
-        <CardVehicle vehicle={vehiclesMocked[2]} />
-        <CardVehicle vehicle={vehiclesMocked[2]} />
+        {vehicles
+          .filter((vehicle: any) => vehicle.isCar === false)
+          .map((vehicle: any) => (
+            <CardVehicle vehicle={vehicle} id={vehicle.id} />
+          ))}
       </Carrousel>
       <ModalGlobal
         title="teste"
@@ -86,7 +81,7 @@ const Home = () => {
       <ModalUpdateProfile />
       <ModalUpdateAddress />
       <Footer />
-    </ HomeStyled>
+    </HomeStyled>
   );
 };
 

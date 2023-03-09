@@ -60,13 +60,13 @@ const AllAdverts = () => {
             gapBetweenItems="48px"
             autoScroll={false}
           >
-            <CardVehicle vehicle={vehiclesMocked[0]} />
+            {/* <CardVehicle vehicle={vehiclesMocked[0]} />
             <CardVehicle vehicle={vehiclesMocked[1]} />
             <CardVehicle vehicle={vehiclesMocked[2]} />
             <CardVehicle vehicle={vehiclesMocked[0]} />
             <CardVehicle vehicle={vehiclesMocked[1]} />
             <CardVehicle vehicle={vehiclesMocked[2]} />
-            <CardVehicle vehicle={vehiclesMocked[0]} />
+            <CardVehicle vehicle={vehiclesMocked[0]} /> */}
           </Carrousel>
         </div>
 
@@ -78,13 +78,13 @@ const AllAdverts = () => {
             paddingBottom={"120px"}
             paddingTop={"210px"}
           >
-            <CardVehicle vehicle={vehiclesMocked[0]} />
+            {/* <CardVehicle vehicle={vehiclesMocked[0]} />
             <CardVehicle vehicle={vehiclesMocked[1]} />
             <CardVehicle vehicle={vehiclesMocked[2]} />
             <CardVehicle vehicle={vehiclesMocked[0]} />
             <CardVehicle vehicle={vehiclesMocked[1]} />
             <CardVehicle vehicle={vehiclesMocked[2]} />
-            <CardVehicle vehicle={vehiclesMocked[0]} />
+            <CardVehicle vehicle={vehiclesMocked[0]} /> */}
           </Carrousel>
         </div>
       </AdvertsStyled>
