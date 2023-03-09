@@ -7,16 +7,23 @@ import Carrousel from "../../components/Carrousel";
 import { useAdvert } from "../../Contexts/Adverts";
 import ModalGlobal from "../../components/ModalGlobal";
 import { useState } from "react";
-import CardAuctionCar from "../../components/CardAuctionCar";
+// import CardAuctionCar from "../../components/CardAuctionCar";
 import ModalUpdateAdvert from "../../components/ModalUpdateAdvert";
 import ModalCreateAdvert from "../../components/ModalCreateAdvert";
 import ModalUpdateProfile from "../../components/ModalUpdateUser";
 import ModalUpdateAddress from "../../components/ModalUpdateAddress";
+import MessageNotAdvert from "../../components/MessageNotAdverts";
 
 const Home = () => {
   const { vehicles } = useAdvert();
 
   const [closeModalTest, setCloseModalTest] = useState<boolean>(true);
+  const carVehicles = vehicles.filter(
+    (vehicles: any) => vehicles.isCar === true
+  );
+  const bikeVehicles = vehicles.filter(
+    (vehicles: any) => vehicles.isCar === false
+  );
 
   return (
     <HomeStyled>
@@ -41,7 +48,7 @@ const Home = () => {
         paddingBottom="200px"
         paddingTop="100px"
       >
-        <CardAuctionCar />
+        <MessageNotAdvert />
       </Carrousel>
       <Carrousel
         carrouselTitle="Carros"
@@ -50,11 +57,13 @@ const Home = () => {
         autoScrollTime="slow"
         paddingBottom="220px"
       >
-        {vehicles
-          .filter((vehicles: any) => vehicles.isCar === true)
-          .map((vehicle: any) => (
+        {carVehicles.length > 0 ? (
+          carVehicles.map((vehicle: any) => (
             <CardVehicle vehicle={vehicle} id={vehicle.id} />
-          ))}
+          ))
+        ) : (
+          <MessageNotAdvert />
+        )}
       </Carrousel>
       <Carrousel
         carrouselTitle="Motos"
@@ -63,11 +72,13 @@ const Home = () => {
         autoScrollTime="slow"
         paddingBottom="120px"
       >
-        {vehicles
-          .filter((vehicle: any) => vehicle.isCar === false)
-          .map((vehicle: any) => (
+        {bikeVehicles.length > 0 ? (
+          bikeVehicles.map((vehicle: any) => (
             <CardVehicle vehicle={vehicle} id={vehicle.id} />
-          ))}
+          ))
+        ) : (
+          <MessageNotAdvert />
+        )}
       </Carrousel>
       <ModalGlobal
         title="teste"

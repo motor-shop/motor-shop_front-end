@@ -16,7 +16,7 @@ const Header = () => {
   return (
     <HeaderStyled>
       <div className="header">
-        <div className="logo">
+        <div className="logo" onClick={() => navigate("/home")}>
           <img src={logo} alt="" />
         </div>
         <div className="btnMenu">
@@ -71,7 +71,7 @@ export default Header;
 const HeaderLogged = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const openProfile = () => setIsProfileOpen(!isProfileOpen);
-  const { user } = useUser();;
+  const { user } = useUser();
 
   return (
     <div className="profile">
@@ -111,10 +111,13 @@ const SellerProfile = () => {
         </button>
       </li>
       <li>
-        <button onClick={() => navigate("/allAdverts", { replace: true })} > Meus anúncios </button>
+        <button onClick={() => navigate("/allAdverts", { replace: true })}>
+          {" "}
+          Meus anúncios{" "}
+        </button>
       </li>
       <li>
-        <button onClick={() => navigate("/login", { replace: true })} >
+        <button onClick={() => navigate("/login", { replace: true })}>
           Sair
         </button>
       </li>
