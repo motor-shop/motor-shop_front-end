@@ -10,10 +10,11 @@ import { api } from "../../services/api";
 import { IUserRequest, useUser } from "../../Contexts/User";
 import { FormStyled } from "./styles";
 import ModalSuccess from "../../components/ModalSuccess";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [isSeller, setIsSeller] = useState<boolean>(true);
-  const { setCloseModalSuccess } = useUser()
+  const { setCloseModalSuccess, registerUser } = useUser();
 
   const formSchema = yup.object().shape({
     username: yup.string().required("Nome obrigatório"),
@@ -41,7 +42,7 @@ const Register = () => {
     formState: { errors },
   } = useForm<IUserRequest>({ resolver: yupResolver(formSchema) });
 
-  function userRegister(data: any) {
+  function submit(data: any) {
     data.is_seller = isSeller;
     data.adress = {
       zip_code: data.zip_code,
@@ -51,199 +52,196 @@ const Register = () => {
       house_number: data.house_number,
       complement: data.complement,
     };
-
-    api
-      .post("/users", data)
-      .then((response) => {
-        console.log(response.data);
-        setCloseModalSuccess(false)
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    toast.promise(registerUser(data), {
+      pending: "Cadastrando conta...",
+      success: "Cadastrado com sucesso!",
+      error: "Ocorreu um erro ao realizar cadastro!",
+    });
   }
 
   return (
     <>
       <Header />
-      <FormStyled onSubmit={handleSubmit(userRegister)}>
-        <h1>Cadastro</h1>
-        <div className="containerPersonalInfo">
-          <p> Informações pessoais</p>
-          <Input
-            label="Nome"
-            placeholder="Ex: Samuel Leaõ"
-            type="text"
-            register={register}
-            registerName="username"
-          />
-          <Input
-            label="Email"
-            placeholder="Ex: samuel@kenzie.com.br"
-            type="text"
-            register={register}
-            registerName="email"
-          />
-          <Input
-            label="CPF"
-            placeholder="000.000.000-00"
-            type="text"
-            register={register}
-            registerName="cpf"
-          />
-          <Input
-            label="Celular"
-            placeholder="(DDD) 90000-0000"
-            type="text"
-            register={register}
-            registerName="cellphone"
-          />
-          <Input
-            label="Data de Nascimento"
-            placeholder="0000/00/00"
-            type="text"
-            register={register}
-            registerName="birth_at"
-          />
-          <Input
-            label="Descrição"
-            placeholder="Digitar descrição"
-            type="text"
-            register={register}
-            registerName="description"
-          />
-        </div>
-        <div className="containerAddressInfo">
-          <p> Informações de Endereço</p>
-          <Input
-            label="CEP"
-            placeholder="00000.000"
-            type="text"
-            register={register}
-            registerName="zip_code"
-          />
-          <div className="addressInfo2">
+      <FormStyled onSubmit={handleSubmit(submit)}>
+        <div className="container">
+          <h1>Cadastro</h1>
+          <div className="containerPersonalInfo">
+            <p> Informações pessoais</p>
             <Input
-              label="Estado"
-              placeholder="Digitar Estado"
+              label="Nome"
+              placeholder="Ex: Samuel Leaõ"
               type="text"
               register={register}
-              registerName="state"
+              registerName="username"
             />
             <Input
-              label="Cidade"
-              placeholder="Digitar cidade"
+              label="Email"
+              placeholder="Ex: samuel@kenzie.com.br"
               type="text"
               register={register}
-              registerName="city"
+              registerName="email"
+            />
+            <Input
+              label="CPF"
+              placeholder="000.000.000-00"
+              type="text"
+              register={register}
+              registerName="cpf"
+            />
+            <Input
+              label="Celular"
+              placeholder="(DDD) 90000-0000"
+              type="text"
+              register={register}
+              registerName="cellphone"
+            />
+            <Input
+              label="Data de Nascimento"
+              placeholder="0000/00/00"
+              type="text"
+              register={register}
+              registerName="birth_at"
+            />
+            <Input
+              label="Descrição"
+              placeholder="Digitar descrição"
+              type="text"
+              register={register}
+              registerName="description"
             />
           </div>
-          <Input
-            label="Rua"
-            placeholder="Digitar rua"
-            type="text"
-            register={register}
-            registerName="street"
-          />
-          <div className="addressInfo2">
+          <div className="containerAddressInfo">
+            <p> Informações de Endereço</p>
             <Input
-              label="Número"
-              placeholder="Digitar número"
+              label="CEP"
+              placeholder="00000.000"
               type="text"
               register={register}
-              registerName="house_number"
+              registerName="zip_code"
             />
+            <div className="addressInfo2">
+              <Input
+                label="Estado"
+                placeholder="Digitar Estado"
+                type="text"
+                register={register}
+                registerName="state"
+              />
+              <Input
+                label="Cidade"
+                placeholder="Digitar cidade"
+                type="text"
+                register={register}
+                registerName="city"
+              />
+            </div>
             <Input
-              label="Complemento"
-              placeholder="Ex: apart 307"
+              label="Rua"
+              placeholder="Digitar rua"
               type="text"
               register={register}
-              registerName="complement"
+              registerName="street"
+            />
+            <div className="addressInfo2">
+              <Input
+                label="Número"
+                placeholder="Digitar número"
+                type="text"
+                register={register}
+                registerName="house_number"
+              />
+              <Input
+                label="Complemento"
+                placeholder="Ex: apart 307"
+                type="text"
+                register={register}
+                registerName="complement"
+              />
+            </div>
+            <p> Tipo de conta</p>
+            <div className="isSellerButton">
+              {isSeller ? (
+                <Button
+                  type="button"
+                  background="#4529E6"
+                  width="152px"
+                  fontSize="16px"
+                  minButton={true}
+                >
+                  Comprador
+                </Button>
+              ) : (
+                <Button
+                  type="button"
+                  background=" #FFFFFF"
+                  backgroundHover="#212529"
+                  borderColorHover="#212529"
+                  borderColor="#ADB5BD"
+                  width="152px"
+                  fontSize="16px"
+                  color="#0B0D0D"
+                  minButton={true}
+                  onClick={() => setIsSeller(true)}
+                >
+                  Comprador
+                </Button>
+              )}
+              {!isSeller ? (
+                <Button
+                  type="button"
+                  background="#4529E6"
+                  width="152px"
+                  fontSize="16px"
+                  minButton={true}
+                >
+                  Anunciante
+                </Button>
+              ) : (
+                <Button
+                  type="button"
+                  background=" #FFFFFF"
+                  backgroundHover="#212529"
+                  borderColorHover="#212529"
+                  borderColor="#ADB5BD"
+                  width="152px"
+                  fontSize="16px"
+                  color="#0B0D0D"
+                  minButton={true}
+                  onClick={() => setIsSeller(false)}
+                >
+                  Anunciante
+                </Button>
+              )}
+            </div>
+            <Input
+              label="Senha"
+              placeholder="Digitar senha"
+              type="text"
+              register={register}
+              registerName="password"
+            />
+            <Input
+              label="Confirmar Senha"
+              placeholder="Digitar senha"
+              type="text"
+              register={register}
+              registerName="confirm_password"
             />
           </div>
-          <p> Tipo de conta</p>
-          <div className="isSellerButton">
-            {isSeller ? (
-              <Button
-                type="button"
-                background="#4529E6"
-                width="152px"
-                fontSize="16px"
-                minButton={true}
-              >
-                Comprador
-              </Button>
-            ) : (
-              <Button
-                type="button"
-                background=" #FFFFFF"
-                backgroundHover="#212529"
-                borderColorHover="#212529"
-                borderColor="#ADB5BD"
-                width="152px"
-                fontSize="16px"
-                color="#0B0D0D"
-                minButton={true}
-                onClick={() => setIsSeller(true)}
-              >
-                Comprador
-              </Button>
-            )}
-            {!isSeller ? (
-              <Button
-                type="button"
-                background="#4529E6"
-                width="152px"
-                fontSize="16px"
-                minButton={true}
-              >
-                Anunciante
-              </Button>
-            ) : (
-              <Button
-                type="button"
-                background=" #FFFFFF"
-                backgroundHover="#212529"
-                borderColorHover="#212529"
-                borderColor="#ADB5BD"
-                width="152px"
-                fontSize="16px"
-                color="#0B0D0D"
-                minButton={true}
-                onClick={() => setIsSeller(false)}
-              >
-                Anunciante
-              </Button>
-            )}
+          <div className="finalButton">
+            <Button
+              type="submit"
+              background=" #4529E6"
+              backgroundHover="#4529E6"
+              borderColorHover="#4529E6"
+              borderColor="##4529E6"
+              width="315px"
+              fontSize="16px"
+              color="#FFFFFF"
+            >
+              Finalizar cadastro
+            </Button>
           </div>
-          <Input
-            label="Senha"
-            placeholder="Digitar senha"
-            type="text"
-            register={register}
-            registerName="password"
-          />
-          <Input
-            label="Confirmar Senha"
-            placeholder="Digitar senha"
-            type="text"
-            register={register}
-            registerName="confirm_password"
-          />
-        </div>
-        <div className="finalButton">
-          <Button
-            type="submit"
-            background=" #4529E6"
-            backgroundHover="#4529E6"
-            borderColorHover="#4529E6"
-            borderColor="##4529E6"
-            width="315px"
-            fontSize="16px"
-            color="#FFFFFF"
-          >
-            Finalizar cadastro
-          </Button>
         </div>
       </FormStyled>
       <ModalSuccess />
