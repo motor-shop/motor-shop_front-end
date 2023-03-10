@@ -4,14 +4,16 @@ interface iPropsCarrousel {
   gapBetweenItems?: string;
   paddingTop?: string;
   paddingBottom?: string;
+  height:string
 }
 
 export const CarrouselStyled = styled.div<iPropsCarrousel>`
   width: 100vw;
-  height: 100%;
+  height: ${({ height }) => ( height )};
   padding-bottom: ${({ paddingBottom }) =>
     paddingBottom ? paddingBottom : "0"};
   padding-top: ${({ paddingTop }) => (paddingTop ? paddingTop : "0")};
+
 
   .carrouselTitle {
     padding: 0 0 63px 23px;
@@ -28,7 +30,7 @@ export const CarrouselStyled = styled.div<iPropsCarrousel>`
   .ListItems {
     padding-left: 23px;
     width: 100vw;
-    height: 370px;
+    height: 100%;
     overflow: scroll;
 
     display: flex;

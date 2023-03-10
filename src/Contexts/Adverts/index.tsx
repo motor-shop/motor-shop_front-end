@@ -105,6 +105,8 @@ interface IContextAdvert {
   setCloseModalSucessUpdateAdvert: React.Dispatch<
     React.SetStateAction<boolean>
   >;
+  closeModalUpdateAdvert: boolean;
+  setCloseModalUpdateAdvert: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface IPropsAdvert {
@@ -181,8 +183,11 @@ export const Advert = ({ children }: IPropsAdvert) => {
   const [advertsByUser, setAdvertsByUser] = useState<IAdvertsByUser>();
   const [closeModalSucessCreateAdvert, setCloseModalSucessCreateAdvert] =
     useState<boolean>(true);
-  const [closeModalSucessUpdateAdvert, setCloseModalSucessUpdateAdvert] =
+    const [closeModalSucessUpdateAdvert, setCloseModalSucessUpdateAdvert] =
     useState<boolean>(true);
+  const [closeModalUpdateAdvert, setCloseModalUpdateAdvert] =
+    useState<boolean>(true);
+    
 
   useEffect(() => {
     async function allAdverts() {
@@ -253,6 +258,8 @@ export const Advert = ({ children }: IPropsAdvert) => {
         setCloseModalSucessCreateAdvert,
         closeModalSucessUpdateAdvert,
         setCloseModalSucessUpdateAdvert,
+        closeModalUpdateAdvert,
+        setCloseModalUpdateAdvert,
       }}
     >
       {children}

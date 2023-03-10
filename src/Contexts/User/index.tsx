@@ -120,12 +120,9 @@ export const User = ({ children }: IPropsUser) => {
   const [closeConfirmDeleteUser, setCloseConfirmDeleteUser] =
     useState<boolean>(true);
   const [closeModalSuccess, setCloseModalSuccess] = useState<boolean>(true);
-  const [closeModalUpdateProfile, setCloseModalUpdateProfile] =
-    useState<boolean>(true);
+  const [closeModalUpdateProfile, setCloseModalUpdateProfile] = useState<boolean>(true);
   const [user, setUser] = useState<IUser>({} as IUser);
   const [isLogged, setIsLogged] = useState<boolean>(false);
-
-  
 
   const userMocked = {
     username: "Rodrigo Tavares",
@@ -197,10 +194,35 @@ export const User = ({ children }: IPropsUser) => {
   };
 
   const deleteUserById = async (userId: string) => {
-    await api.delete(`/users/${userId}`, config());
+    await api.delete(`/users/${userId}`, config())
+    .then(() => {
+      localStorage.removeItem("@motors-shop:Token")
+    localStorage.removeItem("@motors-shop:id")
+    localStorage.removeItem("@addressId")
+    navigate("/login", { replace: true })
+    window.location.reload()
+    })
+    
   };
 
-
+  useEffect(() => {
+    const loadUser = async () => {
+      const token = localStorage.getItem("@motors-shop:Token");
+      const userId = localStorage.getItem("@motors-shop:id");
+      if (token) {
+        try {
+          setIsLogged(true);
+          const { data } = await api.get(`/users/${userId}`, config());
+          setUser(data);
+        } catch (err) {
+          console.log(err);
+          localStorage.removeItem(token);
+          localStorage.removeItem(userId!);
+        }
+      }
+    };
+    loadUser();
+  }, []);
 
   return (
     <UserContext.Provider

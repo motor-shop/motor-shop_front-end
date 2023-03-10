@@ -3,7 +3,7 @@ import Input from "../../components/Input";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { api } from "../../services/api";
+import { api, config } from "../../services/api";
 import { IAdress, useUser } from "../../Contexts/User";
 import { FormStyled } from "./styles";
 import ModalGlobal from "../ModalGlobal";
@@ -26,10 +26,10 @@ const ModalUpdateAddress = () => {
   } = useForm<IAdress>({ resolver: yupResolver(formSchema) });
 
   function addressUpdate(data: IAdress) {
-    const id = localStorage.getItem("@motors-shop:addressId");
+    const id = localStorage.getItem("@addressId");
 
     api
-      .patch(`/address/${id}`, data)
+      .patch(`/address/${id}`, data, config())
       .then((response) => {
         console.log(response.data);
       })

@@ -36,7 +36,7 @@ const ModalUpdateProfile = () => {
     const id = localStorage.getItem("@motors-shop:id");
 
     api
-      .patch(`/users/${id}`, data)
+      .patch(`/users/${id}`, data, config())
       .then((response) => {
         console.log(response.data);
       })

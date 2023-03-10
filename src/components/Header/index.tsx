@@ -103,13 +103,21 @@ const HeaderLogged = () => {
 };
 
 const SellerProfile = () => {
-  const { setCloseModalUpdate } = useUser();
+  const { setCloseModalUpdate, setCloseModalUpdateProfile } = useUser();
   const navigate = useNavigate();
+
+  function notLogged(){
+    localStorage.removeItem("@motors-shop:Token")
+    localStorage.removeItem("@motors-shop:id")
+    localStorage.removeItem("@addressId")
+    navigate("/login", { replace: true })
+    window.location.reload()
+   }
 
   return (
     <div className="profileOptions">
       <li>
-        <button onClick={() => setCloseModalUpdate(false)}>
+        <button onClick={() => setCloseModalUpdateProfile(false)}>
           Editar Perfil
         </button>
       </li>
@@ -124,7 +132,7 @@ const SellerProfile = () => {
         </button>
       </li>
       <li>
-        <button onClick={() => navigate("/login", { replace: true })}>
+        <button onClick={() => notLogged()}>
           Sair
         </button>
       </li>
