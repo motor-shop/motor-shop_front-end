@@ -38,7 +38,7 @@ const ModalSendEmail = ({
   const registerIn = (data: IRequestSendEmail) => {
     setIsLoading(true);
     api
-      .post("http://localhost:3001/users/sendResetPassword", data)
+      .post("/users/sendResetPassword", data)
       .then((res) => {
         setIsSucess(true);
       })
