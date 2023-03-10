@@ -1,6 +1,5 @@
-import React from "react";
 import { IUserResponse } from "../../Contexts/User";
-import { CardComentStyled } from "./styles";
+import { CardComentStyled, ContainerDataCard } from "./styles";
 
 export interface IComment {
   id: string;
@@ -15,22 +14,40 @@ interface ICommentsProps {
 }
 
 const CardComent = ({ comments }: ICommentsProps) => {
+  const formatedData = (date: string) => {
+    const getDays = date.split("T")[0];
+    const date2 = new Date();
+    const date1 = new Date(getDays);
+    const timeDiff = Math.abs(date1.getTime() - date2.getTime());
+    const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+    if (diffDays - 1 === 0) {
+      return "hoje";
+    }
+
+    return `há ${diffDays - 1} dias`;
+  };
+
   return (
     <CardComentStyled>
       <p className="cardTitle">Comentários</p>
       <ul>
         {comments.map((comment) => {
           return (
-            <li key={comment.id}>
+            <ContainerDataCard key={comment.id}>
               <div className="commentUserInfos">
-                <p className="imgUser">
-                  {comment.user.username[0].toUpperCase()}
-                </p>
+                <div className="containerImgUser">
+                  <p className="imgUser">
+                    {comment.user.username[0].toUpperCase()}
+                  </p>
+                </div>
                 <p className="nameUser">{comment.user.username}</p>
-                <span className="datePublication">{`{comment.created_at}`}</span>
+                <span className="datePublication">{`${formatedData(
+                  `${comment.created_at}`
+                )}`}</span>
               </div>
               <div className="commentText">{comment.comment}</div>
-            </li>
+            </ContainerDataCard>
           );
         })}
       </ul>
