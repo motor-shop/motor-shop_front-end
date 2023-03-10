@@ -12,6 +12,8 @@ import ModalGlobal from "../../components/ModalGlobal";
 import { useParams } from "react-router-dom";
 import { api } from "../../services/api";
 import CardComent, { IComment } from "../../components/CardComent";
+import CardAddComent from "../../components/CardAddComent";
+import { useUser } from "../../Contexts/User";
 
 interface IAdvert {
   id: string;
@@ -33,6 +35,8 @@ const Advert = () => {
   const [imageModal, setImageModal] = useState<string>("");
 
   const { advertId } = useParams();
+
+  const { isLogged } = useUser();
 
   const [advert, setAdvert] = useState<null | IAdvert>(null);
 
@@ -70,7 +74,8 @@ const Advert = () => {
               <p className="carTitle">Descrição</p>
               <p>{advert.description}</p>
             </div>
-            <CardComent comments={advert.comments} />
+            <CardComent comments={advert.comments} advertId={advert.id} />
+            {isLogged && <CardAddComent advertId={advertId!} />}
           </div>
         </div>
         <div className="container2">
