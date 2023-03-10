@@ -6,7 +6,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { IComment } from "../CardComent";
 import { useEffect, useState } from "react";
-import { api } from "../../services/api";
+import { api, config } from "../../services/api";
+
 import { toast } from "react-toastify";
 
 interface IPropsModalUpdateComment {
@@ -43,11 +44,8 @@ const ModalUpdateComment = ({
 
   function createComment(data: IRequestUpdateComment) {
     api
-      .patch(`/comments/${comment.id}`, data, {
-        headers: {
-          Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkMjAyMGp1bmlvckBnbWFpbC5jb20iLCJpYXQiOjE2Nzg0MjU5MTMsImV4cCI6MTY3ODUxMjMxMywic3ViIjoiMDk5ZjcxMjktZDllMy00YTAyLWE2ZjMtODMzNTZmYzM0Mjc1In0.R_I4u7LQuGlGT50NsCmSVdI760z9Y-iKmX8K2KIi58o"}`,
-        },
-      })
+
+      .patch(`/comments/${comment.id}`, data, config())
       .then((res) => {
         toast.success("Comentário editado com sucesso", {
           position: "top-center",
@@ -68,11 +66,7 @@ const ModalUpdateComment = ({
 
   async function deleteComment() {
     await api
-      .delete(`/comments/${comment.id}`, {
-        headers: {
-          Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkMjAyMGp1bmlvckBnbWFpbC5jb20iLCJpYXQiOjE2Nzg0MjU5MTMsImV4cCI6MTY3ODUxMjMxMywic3ViIjoiMDk5ZjcxMjktZDllMy00YTAyLWE2ZjMtODMzNTZmYzM0Mjc1In0.R_I4u7LQuGlGT50NsCmSVdI760z9Y-iKmX8K2KIi58o"}`,
-        },
-      })
+      .delete(`/comments/${comment.id}`, config())
       .then((res) => {
         console.log(res);
         toast.error("Comentário deletado com sucesso!", {

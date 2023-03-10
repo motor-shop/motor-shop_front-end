@@ -49,7 +49,7 @@ const ResetPassword = () => {
     delete data.confirmPassword;
 
     api
-      .post("http://localhost:3001/users/resetPassword", data)
+      .post("/users/resetPassword", data)
       .then((res) => {
         setIsResetdPassword(true);
       })
