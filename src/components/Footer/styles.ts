@@ -1,0 +1,31 @@
+import styled from "styled-components";
+
+export const FooterContainer = styled.footer`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2.5rem;
+  background-color: var(--color-gray-0);
+
+  p {
+    color: var(--color-whiteFixed);
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-gray-1);
+    border-radius: 4px;
+    width: 3rem;
+    height: 3rem;
+    border: none;
+  }
+
+  @media (max-width: 450px) {
+    flex-direction: column;
+    gap: 3rem;
+    padding: 2rem;
+  }
+`;

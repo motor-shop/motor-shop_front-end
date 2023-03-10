@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "motors-shop.com",
+  baseURL: "https://motors-shop-1.onrender.com",
   timeout: 5000,
 });
 
