@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import { api, config } from "../../services/api";
 
+
+
 interface IRequestComment {
   comment: string;
   advertId: string;

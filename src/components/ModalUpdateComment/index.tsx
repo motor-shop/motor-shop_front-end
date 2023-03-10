@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { IComment } from "../CardComent";
 import { useEffect, useState } from "react";
 import { api, config } from "../../services/api";
+
 import { toast } from "react-toastify";
 
 interface IPropsModalUpdateComment {
@@ -43,6 +44,7 @@ const ModalUpdateComment = ({
 
   function createComment(data: IRequestUpdateComment) {
     api
+
       .patch(`/comments/${comment.id}`, data, config())
       .then((res) => {
         toast.success("Comentário editado com sucesso", {

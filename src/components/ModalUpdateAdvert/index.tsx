@@ -16,8 +16,7 @@ interface IPropsModalUpdate {
 }
 
 const ModalUpdateAdvert = () => {
-  const { advertMocked } = useAdvert();
-  const [closeModalTest, setCloseModalTest] = useState<boolean>(true);
+  const { advertMocked, setCloseModalUpdateAdvert, closeModalUpdateAdvert } = useAdvert();
   const [arrayImages, setArrayImages] = useState<IImage[]>([]);
   const [isSeller, setIsSeller] = useState<boolean>(advertMocked.is_selling);
   const [isCar, setIsCar] = useState<boolean>(advertMocked.is_car);
@@ -94,8 +93,8 @@ const ModalUpdateAdvert = () => {
     <>
       <ModalGlobal
         title="Editar anúncio"
-        closeModal={closeModalTest}
-        setCloseModal={setCloseModalTest}
+        closeModal={closeModalUpdateAdvert}
+        setCloseModal={setCloseModalUpdateAdvert}
       >
         <Container>
           <form onSubmit={handleSubmit(registerIn)}>

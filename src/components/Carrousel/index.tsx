@@ -11,6 +11,7 @@ interface IPropsCarrousel {
   autoScrollTime?: "slow" | "medium" | "fast" | "flash";
   paddingBottom?: string;
   paddingTop?: string;
+  height?: string;
 }
 
 const Carrousel = ({
@@ -22,6 +23,7 @@ const Carrousel = ({
   autoScrollTime = "medium",
   paddingTop,
   paddingBottom,
+  height= "100%",
 }: IPropsCarrousel) => {
   const [isDragging, setIsDragging] = useState(false);
 
@@ -130,6 +132,7 @@ const Carrousel = ({
       gapBetweenItems={gapBetweenItems}
       paddingBottom={paddingBottom}
       paddingTop={paddingTop}
+      height={height}
     >
       <h2 className="carrouselTitle">{carrouselTitle}</h2>
       <ul

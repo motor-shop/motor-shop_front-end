@@ -83,6 +83,18 @@ export const AdvertsStyled = styled.div`
     margin-top: 150px;
   }
 
+  .cars{
+    margin-bottom: 150px;
+    display: flex;
+    .teste{
+      height: 356px;
+     
+      button{
+        margin-right: 10px;
+        
+      }
+    }
+  }
   .motorcycles {
     margin-top: 250px;
 
