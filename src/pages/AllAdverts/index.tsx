@@ -12,10 +12,19 @@ import { useAdvert } from "../../Contexts/Adverts";
 import Button from "../../components/Button";
 import ModalCreateAdvert from "../../components/ModalCreateAdvert";
 import MessageNotAdvert from "../../components/MessageNotAdverts";
+import { useNavigate } from "react-router-dom";
+import ModalUpdateAddress from "../../components/ModalUpdateAddress";
+import ModalUpdateProfile from "../../components/ModalUpdateUser";
+import ModalUpdateAdvert from "../../components/ModalUpdateAdvert";
 
 const AllAdverts = () => {
+  const navigate = useNavigate();
   const { user } = useUser();
-  const { setCloseModalCreateAdvert, vehiclesByUser } = useAdvert();
+  const {
+    setCloseModalCreateAdvert,
+    vehiclesByUser,
+    setCloseModalUpdateAdvert,
+  } = useAdvert();
   const carVehicles = vehiclesByUser
     ? vehiclesByUser.filter(
         (vehiclesByUser: any) => vehiclesByUser.isCar === true
@@ -71,8 +80,47 @@ const AllAdverts = () => {
               carrouselTitle="Carros"
               gapBetweenItems="48px"
               autoScroll={false}
+              height="500px"
             >
-              <>*listar anuncios do usuário*</>
+              {carVehicles.length > 0 ? (
+                carVehicles.map((vehicle: any) => (
+                  <div className="teste" key={vehicle.id}>
+                    <CardVehicle vehicle={vehicle} id={vehicle.id} />
+                    <Button
+                      type="button"
+                      background="  #F1F3F5"
+                      borderColor="#212529"
+                      backgroundHover="#EDEAFD"
+                      borderColorHover="##4529E6"
+                      width="80px"
+                      fontSize="14px"
+                      color="#212529"
+                      minButton={true}
+                      onClick={() => setCloseModalUpdateAdvert(false)}
+                    >
+                      Editar
+                    </Button>
+                    <Button
+                      type="button"
+                      background="  #F1F3F5"
+                      borderColor="#212529"
+                      backgroundHover="#EDEAFD"
+                      borderColorHover="##4529E6"
+                      width="105px"
+                      fontSize="14px"
+                      color="#212529"
+                      minButton={true}
+                      onClick={() =>
+                        navigate(`/advert/${vehicle.id}`, { replace: true })
+                      }
+                    >
+                      Ver como
+                    </Button>
+                  </div>
+                ))
+              ) : (
+                <MessageNotAdvert />
+              )}
             </Carrousel>
           ) : (
             <Carrousel
@@ -82,7 +130,39 @@ const AllAdverts = () => {
             >
               {carVehicles.length > 0 ? (
                 carVehicles.map((vehicle: any) => (
-                  <CardVehicle vehicle={vehicle} id={vehicle.id} />
+                  <div className="teste" key={vehicle.id}>
+                    <CardVehicle vehicle={vehicle} id={vehicle.id} />
+                    <Button
+                      type="button"
+                      background="  #F1F3F5"
+                      borderColor="#212529"
+                      backgroundHover="#EDEAFD"
+                      borderColorHover="##4529E6"
+                      width="80px"
+                      fontSize="14px"
+                      color="#212529"
+                      minButton={true}
+                      onClick={() => setCloseModalUpdateAdvert(false)}
+                    >
+                      Editar
+                    </Button>
+                    <Button
+                      type="button"
+                      background="  #F1F3F5"
+                      borderColor="#212529"
+                      backgroundHover="#EDEAFD"
+                      borderColorHover="##4529E6"
+                      width="105px"
+                      fontSize="14px"
+                      color="#212529"
+                      minButton={true}
+                      onClick={() =>
+                        navigate(`/advert/${vehicle.id}`, { replace: true })
+                      }
+                    >
+                      Ver como
+                    </Button>
+                  </div>
                 ))
               ) : (
                 <MessageNotAdvert />
@@ -98,7 +178,13 @@ const AllAdverts = () => {
               gapBetweenItems="48px"
               autoScroll={false}
             >
-              <>*listar anuncios do usuário*</>
+              {bikeVehicles.length > 0 ? (
+                bikeVehicles.map((vehicle: any) => (
+                  <CardVehicle vehicle={vehicle} id={vehicle.id} />
+                ))
+              ) : (
+                <MessageNotAdvert />
+              )}
             </Carrousel>
           ) : (
             <Carrousel
@@ -118,6 +204,9 @@ const AllAdverts = () => {
         </div>
       </AdvertsStyled>
       <ModalCreateAdvert />
+      <ModalUpdateAddress />
+      <ModalUpdateProfile />
+      <ModalUpdateAdvert />
       <Footer />
     </>
   );

@@ -7,15 +7,18 @@ import { CreateFormStyled } from "./style";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { api } from "../../services/api";
+import { api, config } from "../../services/api";
+import ModalSuccessAdvert from "../ModalSucessAdvert";
+import { useNavigate } from "react-router-dom";
 
 const ModalCreateAdvert = () => {
-  
   const { closeModalCreateAdvert, setCloseModalCreateAdvert } = useAdvert();
   const [isCar, setIsCar] = useState<boolean>(true);
   const [isSelling, setIsSelling] = useState<boolean>(true);
   const [countMap, setCountMap] = useState<Array<number>>([]);
+  const [closeModalSucess, setcloseModalSucess] = useState<boolean>(true);
   let count = 1;
+  const navigate= useNavigate()
 
   function createAdvert(data: any) {
     data.images = [];
@@ -29,9 +32,12 @@ const ModalCreateAdvert = () => {
     console.log(data);
 
     api
-      .post("/adverts", data)
+      .post("/adverts", data, config())
       .then((response) => {
         console.log(response.data);
+        setcloseModalSucess(false);
+        setCloseModalCreateAdvert(true)
+        navigate(`/advert/${response.data.id}`)
       })
       .catch((err) => {
         console.log(err);
@@ -142,35 +148,35 @@ const ModalCreateAdvert = () => {
           />
           <span> {errors.title?.message}</span>
           <div className="info">
-          <div className="errors">
-            <Input
-              placeholder="Digitar ano"
-              label="Ano"
-              type="text"
-              register={register}
-              registerName="year"
-            />
-            <span> {errors.year?.message}</span>
+            <div className="errors">
+              <Input
+                placeholder="Digitar ano"
+                label="Ano"
+                type="text"
+                register={register}
+                registerName="year"
+              />
+              <span> {errors.year?.message}</span>
             </div>
             <div className="errors">
-            <Input
-              placeholder="0"
-              label="Quilometragem"
-              type="text"
-              register={register}
-              registerName="km"
-            />
-            <span> {errors.km?.message}</span>
+              <Input
+                placeholder="0"
+                label="Quilometragem"
+                type="text"
+                register={register}
+                registerName="km"
+              />
+              <span> {errors.km?.message}</span>
             </div>
             <div className="errors">
-            <Input
-              placeholder="Digitar preço"
-              label="Preço"
-              type="text"
-              register={register}
-              registerName="price"
-            />
-            <span> {errors.price?.message}</span>
+              <Input
+                placeholder="Digitar preço"
+                label="Preço"
+                type="text"
+                register={register}
+                registerName="price"
+              />
+              <span> {errors.price?.message}</span>
             </div>
           </div>
           <div className="containerDescription">
@@ -309,6 +315,13 @@ const ModalCreateAdvert = () => {
           </div>
         </CreateFormStyled>
       </ModalGlobal>
+
+      <ModalSuccessAdvert
+        title="Seu anúncio foi criado com sucesso!"
+        text="Agora você poderá ver seus negócios crescendo em grande escala"
+        closeModal={closeModalSucess}
+        setCloseModal={setcloseModalSucess}
+      />
     </>
   );
 };
