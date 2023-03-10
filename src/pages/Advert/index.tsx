@@ -74,7 +74,7 @@ const Advert = () => {
               <p className="carTitle">Descrição</p>
               <p>{advert.description}</p>
             </div>
-            <CardComent comments={advert.comments} />
+            <CardComent comments={advert.comments} advertId={advert.id} />
             {isLogged && <CardAddComent advertId={advertId!} />}
           </div>
         </div>

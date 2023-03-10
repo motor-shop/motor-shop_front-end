@@ -1,4 +1,7 @@
+import { useEffect, useState } from "react";
 import { IUserResponse } from "../../Contexts/User";
+import { api } from "../../services/api";
+import ModalUpdateComment from "../ModalUpdateComment";
 import { CardComentStyled, ContainerDataCard } from "./styles";
 
 export interface IComment {
@@ -11,9 +14,32 @@ export interface IComment {
 
 interface ICommentsProps {
   comments: Array<IComment>;
+  advertId: string;
 }
 
-const CardComent = ({ comments }: ICommentsProps) => {
+const CardComent = ({ comments, advertId }: ICommentsProps) => {
+  const [closeModalUpdate, setCLoseModalUpdate] = useState(true);
+  const [clickedComment, setCLickedComment] = useState<IComment>(
+    {} as IComment
+  );
+  const [listComment, setListComment] = useState<IComment[]>([]);
+
+  useEffect(() => {
+    setListComment(comments);
+  }, [comments]);
+
+  const updatedComments = async () => {
+    await api
+      .get(`/comments/${advertId}`)
+      .then((res) => {
+        console.log(res);
+        setListComment(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const formatedData = (date: string) => {
     const getDays = date.split("T")[0];
     const date2 = new Date();
@@ -32,9 +58,15 @@ const CardComent = ({ comments }: ICommentsProps) => {
     <CardComentStyled>
       <p className="cardTitle">Comentários</p>
       <ul>
-        {comments.map((comment) => {
+        {listComment.map((comment) => {
           return (
-            <ContainerDataCard key={comment.id}>
+            <ContainerDataCard
+              key={comment.id}
+              onClick={() => {
+                setCLickedComment(comment);
+                setCLoseModalUpdate(false);
+              }}
+            >
               <div className="commentUserInfos">
                 <div className="containerImgUser">
                   <p className="imgUser">
@@ -50,6 +82,12 @@ const CardComent = ({ comments }: ICommentsProps) => {
             </ContainerDataCard>
           );
         })}
+        <ModalUpdateComment
+          closeModal={closeModalUpdate}
+          setCLoseModal={setCLoseModalUpdate}
+          comment={clickedComment}
+          updatedList={updatedComments}
+        />
       </ul>
     </CardComentStyled>
   );

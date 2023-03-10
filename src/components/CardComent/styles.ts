@@ -8,6 +8,7 @@ export const CardComentStyled = styled.div`
   gap: 1rem;
   background-color: var(--color-gray-10);
   padding: 3rem;
+  cursor: pointer;
 
   p {
     font-weight: 600;
@@ -51,9 +52,7 @@ export const CardComentStyled = styled.div`
 `;
 
 export const ContainerDataCard = styled.li`
-  min-height: 100px;
-
-  margin-bottom: 18px;
+  margin-bottom: 25px;
 
   .containerImgUser {
     background-color: var(--color-brand-2);
