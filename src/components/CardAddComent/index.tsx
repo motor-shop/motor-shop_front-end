@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "../Button";
 import { toast } from "react-toastify";
 import { useState } from "react";
-import { api } from "../../services/api";
+import { api, config } from "../../services/api";
 
 interface IRequestComment {
   comment: string;
@@ -36,11 +36,7 @@ const CardAddComent = ({ advertId }: IPropsCardAddComment) => {
     data.advertId = advertId;
 
     api
-      .post("/comments", data, {
-        headers: {
-          Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVkMjAyMGp1bmlvckBnbWFpbC5jb20iLCJpYXQiOjE2Nzg0MjU5MTMsImV4cCI6MTY3ODUxMjMxMywic3ViIjoiMDk5ZjcxMjktZDllMy00YTAyLWE2ZjMtODMzNTZmYzM0Mjc1In0.R_I4u7LQuGlGT50NsCmSVdI760z9Y-iKmX8K2KIi58o"}`,
-        },
-      })
+      .post("/comments", data, config())
       .then((res) => {
         console.log(res);
         toast.success("Comentário adicionado com sucesso!", {

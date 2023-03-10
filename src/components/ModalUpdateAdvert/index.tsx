@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import UpdateAdvertSchema from "../../validations/UpdateAdvert";
 import { Container, ContainerButtons, ContainerInputs } from "./style";
 import ModalDeleteAdvert from "../ModalDeleteAdvert";
-import { api } from "../../services/api";
+import { api, config } from "../../services/api";
 
 interface IPropsModalUpdate {
   close: boolean;
@@ -78,13 +78,9 @@ const ModalUpdateAdvert = () => {
 
     api
       .patch(
-        `http://localhost:3001/adverts/${"31bb4b9b-d0e1-42c9-9e1f-1355cf3259e3"}`,
+        `/adverts/${"31bb4b9b-d0e1-42c9-9e1f-1355cf3259e3"}`,
         data,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        config()
       )
       .then((res) => {
         console.log(res);
