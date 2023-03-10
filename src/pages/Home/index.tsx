@@ -6,8 +6,8 @@ import CardVehicle from "../../components/CardVehicle";
 import Carrousel from "../../components/Carrousel";
 import { useAdvert } from "../../Contexts/Adverts";
 import ModalGlobal from "../../components/ModalGlobal";
-import { useState } from "react";
-// import CardAuctionCar from "../../components/CardAuctionCar";
+import { useRef, useState } from "react";
+import CardAuctionCar from "../../components/CardAuctionCar";
 import ModalUpdateAdvert from "../../components/ModalUpdateAdvert";
 import ModalCreateAdvert from "../../components/ModalCreateAdvert";
 import ModalUpdateProfile from "../../components/ModalUpdateUser";
@@ -25,6 +25,22 @@ const Home = () => {
     (vehicles: any) => vehicles.isCar === false
   );
 
+  const carRef = useRef<HTMLDivElement>(null);
+  const motoRef = useRef<HTMLDivElement>(null);
+
+  const scrollToCar: any = () => {
+    if (carRef.current !== null) {
+      carRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const scrollToMoto: any = () => {
+    if (motoRef.current !== null) {
+      motoRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  
   return (
     <HomeStyled>
       <Header />
@@ -36,10 +52,15 @@ const Home = () => {
           Um ambiente feito para você explorar o seu melhor
         </p>
         <div>
-          <Button type="submit">Carros</Button>
-          <Button type="submit">Motos</Button>
+          <Button type="submit" onClick={scrollToCar}>
+            Carros
+          </Button>
+          <Button type="submit" onClick={scrollToMoto}>
+            Motos
+          </Button>
         </div>
       </CardFilter>
+      <div id="leilao">
       <Carrousel
         carrouselTitle="Leilão"
         gapBetweenItems="48px"
@@ -48,8 +69,10 @@ const Home = () => {
         paddingBottom="200px"
         paddingTop="100px"
       >
-        <MessageNotAdvert />
+        <MessageNotAdvert /> 
       </Carrousel>
+      </div>
+        <div ref={carRef} id="car">
       <Carrousel
         carrouselTitle="Carros"
         gapBetweenItems="48px"
@@ -65,6 +88,8 @@ const Home = () => {
           <MessageNotAdvert />
         )}
       </Carrousel>
+      </div>
+          <div ref={motoRef} id="moto">
       <Carrousel
         carrouselTitle="Motos"
         gapBetweenItems="48px"
@@ -80,13 +105,7 @@ const Home = () => {
           <MessageNotAdvert />
         )}
       </Carrousel>
-      <ModalGlobal
-        title="teste"
-        closeModal={closeModalTest}
-        setCloseModal={setCloseModalTest}
-      >
-        <p>teste</p>
-      </ModalGlobal>
+      </div>
       <ModalUpdateAdvert />
       <ModalCreateAdvert />
       <ModalUpdateProfile />

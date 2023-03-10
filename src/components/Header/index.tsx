@@ -13,6 +13,7 @@ const Header = () => {
   const navigate = useNavigate();
   const { isLogged } = useUser();
 
+
   return (
     <HeaderStyled>
       <div className="header">
@@ -29,13 +30,20 @@ const Header = () => {
         <ul className={`menu ${isActive ? "nav-menu active" : "nav-menu"}`}>
           <div className="options">
             <li>
-              <button> Carros</button>
+              <a href="#car"> 
+              <button onClick={() => navigate("/home")}> 
+              Carros</button>
+              </a>
             </li>
             <li>
-              <button> Motos </button>
+            <a href="#moto"> 
+              <button onClick={() => navigate("/home")}> Motos </button>
+              </a>
             </li>
             <li>
-              <button> Leilão </button>
+             <a href="#leilao"> 
+              <button onClick={() => navigate("/home")}> Leilão </button>
+              </a>
             </li>
           </div>
           {isLogged ? (
@@ -112,8 +120,7 @@ const SellerProfile = () => {
       </li>
       <li>
         <button onClick={() => navigate("/allAdverts", { replace: true })}>
-          {" "}
-          Meus anúncios{" "}
+          Meus anúncios
         </button>
       </li>
       <li>
