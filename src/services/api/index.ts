@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const api = axios.create({
   baseURL: "https://motors-shop-1.onrender.com",
-  timeout: 5000,
+  // timeout: 5000,
 });
 
 export const config = () => {
